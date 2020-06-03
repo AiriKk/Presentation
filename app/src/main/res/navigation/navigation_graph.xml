@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/PresentingFragment">
+    <fragment
+        android:id="@+id/StartFragment"
+        android:name="com.airi.presentation.StartFragment"
+        android:label="StartFragment"
+        tools:layout="@layout/fragment_start">
+        <action
+            android:id="@+id/action_StartFragment_to_PresentingFragment"
+            app:destination="@id/PresentingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/PresentingFragment"
+        android:name="com.airi.presentation.PresentingFragment"
+        android:label="PresentingFragment"
+        tools:layout="@layout/fragment_presenting" />
+
+</navigation>
