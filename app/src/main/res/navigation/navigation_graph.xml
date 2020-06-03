@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/PresentingFragment">
+    app:startDestination="@id/StartFragment">
     <fragment
         android:id="@+id/StartFragment"
         android:name="com.airi.presentation.StartFragment"
@@ -17,6 +17,19 @@
         android:id="@+id/PresentingFragment"
         android:name="com.airi.presentation.PresentingFragment"
         android:label="PresentingFragment"
-        tools:layout="@layout/fragment_presenting" />
+        tools:layout="@layout/fragment_presenting" >
+        <action
+            android:id="@+id/action_PresentingFragment_to_DoneFragment"
+            app:destination="@id/DoneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/DoneFragment"
+        android:name="com.airi.presentation.DoneFragment"
+        android:label="DoneFragment"
+        tools:layout="@layout/fragment_done">
+        <action
+            android:id="@+id/action_DoneFragment_to_StartFragment"
+            app:destination="@id/StartFragment" />
+    </fragment>
 
 </navigation>

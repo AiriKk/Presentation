@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_presenting.*
+import kotlinx.android.synthetic.main.fragment_start.*
 
 class PresentingFragment : Fragment() {
 
@@ -25,9 +26,11 @@ class PresentingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        finish.setOnClickListener {
+        quit.setOnClickListener {
             findNavController().popBackStack()
+        }
+        start.setOnClickListener {
+            findNavController().navigate(R.id.action_PresentingFragment_to_DoneFragment)
         }
     }
 }

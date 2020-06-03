@@ -17,7 +17,7 @@ class StartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_done, container, false)
+        val view = inflater.inflate(R.layout.fragment_start, container, false)
         return view
     }
 
@@ -26,7 +26,7 @@ class StartFragment : Fragment() {
 
         start.setOnClickListener {
             //fragment遷移
-            findNavController().navigate(StartFragmentDirections.action_StartFragmentToPresentingFragment())
+            findNavController().navigate(R.id.action_StartFragment_to_PresentingFragment)
         }
     }
 }
