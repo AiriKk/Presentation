@@ -57,7 +57,6 @@ class DoneFragment : Fragment() {
                 .add("dic", "")
                 .build()
 
-            sentences.text= kekka
             val request = Request.Builder().url(url).post(body).build()
             client.newCall(request).enqueue(object : okhttp3.Callback {
                 override fun onFailure(call: okhttp3.Call, e: IOException) {
@@ -67,7 +66,9 @@ class DoneFragment : Fragment() {
                 override fun onResponse(call: okhttp3.Call, response: Response) {
                     Log.d("###", response.message)
                     val responseText: String? = response.body?.string()
+                    Log.d("###", "あと一歩")
                     sentences.text = responseText
+                    Log.d("###", "できたよ！！")
                 }
             })
 
