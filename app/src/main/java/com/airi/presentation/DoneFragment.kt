@@ -51,25 +51,25 @@ class DoneFragment : Fragment() {
             val url: String = "http://maapi.net/apis/mecapi?"
             val body: FormBody = FormBody.Builder()
                 .add("sentence", kekka)
-//                .add("response", "")
-//                .add("filter", "")
-//                .add("format", "")
-//                .add("dic", "")
+                .add("response", "")
+                .add("filter", "")
+                .add("format", "")
+                .add("dic", "")
                 .build()
 
             sentences.text= kekka
-//            val request = Request.Builder().url(url).post(body).build()
-//            client.newCall(request).enqueue(object : okhttp3.Callback {
-//                override fun onFailure(call: okhttp3.Call, e: IOException) {
-//                    Log.d("faild", e.message)
-//                }
-//
-//                override fun onResponse(call: okhttp3.Call, response: Response) {
-//                    Log.d("###", response.message)
-//                    val responseText: String? = response.body?.string()
-//                    sentences.text = responseText
-//                }
-//            })
+            val request = Request.Builder().url(url).post(body).build()
+            client.newCall(request).enqueue(object : okhttp3.Callback {
+                override fun onFailure(call: okhttp3.Call, e: IOException) {
+                    Log.d("faild", e.message)
+                }
+
+                override fun onResponse(call: okhttp3.Call, response: Response) {
+                    Log.d("###", response.message)
+                    val responseText: String? = response.body?.string()
+                    sentences.text = responseText
+                }
+            })
 
         }
         back.setOnClickListener {
