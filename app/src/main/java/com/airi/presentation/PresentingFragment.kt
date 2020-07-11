@@ -75,10 +75,14 @@ class PresentingFragment : Fragment() {
             findNavController().popBackStack()
         }
         finish.setOnClickListener {
+
+//            val element= document.getElementById(spoken)as String;
+
             val pref: SharedPreferences = requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
             val editor: SharedPreferences.Editor = pref.edit()
             editor.putString("sentences", resultText)
             editor.commit()
+
             findNavController().navigate(R.id.action_PresentingFragment_to_DoneFragment)
         }
     }

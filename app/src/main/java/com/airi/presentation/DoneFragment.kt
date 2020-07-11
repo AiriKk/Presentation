@@ -17,10 +17,7 @@ import androidx.navigation.fragment.findNavController
 //import com.github.kittinunf.result.Result
 import kotlinx.android.synthetic.main.fragment_done.*
 import kotlinx.android.synthetic.main.fragment_presenting.*
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
 import java.io.IOException
 
 class DoneFragment : Fragment() {
@@ -44,7 +41,7 @@ class DoneFragment : Fragment() {
         get.setOnClickListener {
 
             val pref: SharedPreferences = requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
-            val kekka= pref.getString("sentences",null)
+            val kekka= pref.getString("sentences","読み込めませんでした")
 
             Log.d("###", "setOnClickListener")
             val client: OkHttpClient = OkHttpClient()
