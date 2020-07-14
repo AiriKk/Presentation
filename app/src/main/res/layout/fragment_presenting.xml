@@ -58,34 +58,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:paddingRight="32dp"
             android:text="Start"
             android:textColor="#ffffff"
             android:textSize="36sp" />
 
         <TextView
-            android:id="@+id/quit"
+            android:id="@+id/stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="Quit"
-            android:textColor="#ffffff"
-            android:textSize="36sp" />
-
-        <TextView
-            android:id="@+id/finish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="Finish"
+            android:paddingLeft="32dp"
+            android:text="Stop"
             android:textColor="#ffffff"
             android:textSize="36sp" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/front"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:text="←"
+        android:textColor="#ffffff"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
-import android.os.HandlerThread
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,7 +17,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_done.*
-import kotlinx.android.synthetic.main.fragment_presenting.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -39,7 +37,6 @@ class DoneFragment : Fragment() {
         val kekka = pref.getString("sentences","読み込めませんでした")
         Log.d("###", "setOnClickListener")
         val client: OkHttpClient = OkHttpClient()
-        Log.d("$$$$$$$", kekka)
         val url: String = "http://maapi.net/apis/mecapi?"
         val body: FormBody = FormBody.Builder()
             .add("sentence", kekka)
@@ -48,6 +45,7 @@ class DoneFragment : Fragment() {
             .add("format", "")
             .add("dic", "")
             .build()
+
 
         val request = Request.Builder().url(url).post(body).build()
         client.newCall(request).enqueue(object : okhttp3.Callback {
@@ -63,7 +61,8 @@ class DoneFragment : Fragment() {
                 val mainHandler = Handler(Looper.getMainLooper())
                 try {
                     mainHandler.post {
-                        sentences.text = responseText
+                        sentences.text = kekka
+//                        sentences.text = responseText
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()

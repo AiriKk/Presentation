@@ -1,22 +1,19 @@
 package com.airi.presentation
 
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.provider.Settings.Global.putInt
-import android.provider.Settings.Global.putString
 import android.speech.RecognizerIntent
-import android.system.Os.listen
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_presenting.*
-import kotlinx.android.synthetic.main.fragment_start.*
 import java.util.*
 
 class PresentingFragment : Fragment() {
@@ -46,7 +43,6 @@ class PresentingFragment : Fragment() {
         } catch (e: ActivityNotFoundException) {
             e.printStackTrace()
             spoken.text = e.message
-            resultText = e.message!!
         }
     }
 
@@ -72,19 +68,26 @@ class PresentingFragment : Fragment() {
         hajime.setOnClickListener {
             listen()
         }
-        quit.setOnClickListener {
-            findNavController().popBackStack()
+        stop.setOnClickListener {
+            AlertDialog.Builder(context) // FragmentではActivityを取得して生成
+                .setTitle("Stop")
+                .setMessage("メッセージ")
+                .setPositiveButton("続ける", { dialog, which ->
+                })
+                .setNegativeButton("終了する", { dialog, which ->
+                    val pref: SharedPreferences =
+                        requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
+                    val editor: SharedPreferences.Editor = pref.edit()
+                    editor.putString("sentences", resultText)
+                    editor.commit()
+
+                    findNavController().navigate(R.id.action_PresentingFragment_to_DoneFragment)
+                })
+                .show()
         }
-        finish.setOnClickListener {
 
-//            val element= document.getElementById(spoken)as String;
-
-            val pref: SharedPreferences = requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = pref.edit()
-            editor.putString("sentences", resultText)
-            editor.commit()
-
-            findNavController().navigate(R.id.action_PresentingFragment_to_DoneFragment)
+        front.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 }
