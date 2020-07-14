@@ -61,6 +61,7 @@ class PresentingFragment : Fragment() {
                 if (results.size > 0) {
                     // インデックス0の結果を表示
                     spoken.text = results[0]
+                    resultText = results[0]
                 }
             }
         }
