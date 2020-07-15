@@ -10,11 +10,11 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/suez_one"
         android:text="Speaking..."
         android:textColor="#4d4d4d"
-        android:textSize="30sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +57,7 @@
         <TextView
             android:id="@+id/hajime"
             android:layout_width="160dp"
-            android:layout_height="60dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_weight="1"
@@ -66,12 +66,12 @@
             android:gravity="center"
             android:text="Start"
             android:textColor="#ffffff"
-            android:textSize="34sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/stop"
             android:layout_width="160dp"
-            android:layout_height="60dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_weight="1"
@@ -80,7 +80,7 @@
             android:gravity="center"
             android:text="Stop"
             android:textColor="#ffffff"
-            android:textSize="34sp" />
+            android:textSize="24sp" />
 
     </LinearLayout>
 
@@ -95,6 +95,6 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

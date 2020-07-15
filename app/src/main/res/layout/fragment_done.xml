@@ -10,11 +10,11 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/suez_one"
         android:text="Result"
         android:textColor="#4d4d4d"
-        android:textSize="30sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -61,8 +61,8 @@
 
     <TextView
         android:id="@+id/back"
-        android:layout_width="320dp"
-        android:layout_height="60dp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/round_color"
         android:fontFamily="@font/suez_one"
@@ -71,7 +71,7 @@
         android:paddingRight="32dp"
         android:text="Back to Top"
         android:textColor="#ffffff"
-        android:textSize="34sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

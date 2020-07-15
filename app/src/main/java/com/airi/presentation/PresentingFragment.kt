@@ -20,6 +20,7 @@ class PresentingFragment : Fragment() {
 
     val REQUEST_CODE = 1000
     var resultText = ""
+    var already = ""
 
 
     override fun onCreateView(
@@ -57,8 +58,8 @@ class PresentingFragment : Fragment() {
                 // 内容があれば
                 if (results.size > 0) {
                     // インデックス0の結果を表示
-                    spoken.text = results[0]
-                    resultText = results[0]
+                    spoken.text = already + results[0]
+                    resultText = already + results[0]
                 }
             }
         }
@@ -77,15 +78,16 @@ class PresentingFragment : Fragment() {
         stop.setOnClickListener {
             stop.setVisibility(View.GONE);
             hajime.setVisibility(View.VISIBLE);
+            already = spoken.getContext().toString();
             AlertDialog.Builder(context) // FragmentではActivityを取得して生成
                 .setTitle("一時停止中")
                 .setMessage("")
-                .setNegativeButton("キャンセル", { dialog, which ->
+                .setNegativeButton("キャンセル") { dialog, which ->
                     hajime.text="Restart";
                     hajime.setVisibility(View.VISIBLE);
                     stop.setVisibility(View.VISIBLE);
-                })
-                .setPositiveButton("終了する", { dialog, which ->
+                }
+                .setPositiveButton("終了する") { dialog, which ->
                     val pref: SharedPreferences =
                         requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
                     val editor: SharedPreferences.Editor = pref.edit()
@@ -93,12 +95,20 @@ class PresentingFragment : Fragment() {
                     editor.commit()
 
                     findNavController().navigate(R.id.action_PresentingFragment_to_DoneFragment)
-                })
+                }
                 .show()
         }
 
         front.setOnClickListener {
-            findNavController().popBackStack()
+            AlertDialog.Builder(context) // FragmentではActivityを取得して生成
+                .setTitle("本当にやめますか")
+                .setMessage("")
+                .setNegativeButton("キャンセル") { dialog, which ->
+                }
+                .setPositiveButton("やめる") { dialog, which ->
+                    findNavController().popBackStack()
+                }
+                .show()
+        }
         }
     }
-}
