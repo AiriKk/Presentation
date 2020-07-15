@@ -21,6 +21,7 @@ class PresentingFragment : Fragment() {
     val REQUEST_CODE = 1000
     var resultText = ""
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,16 +66,26 @@ class PresentingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        stop.setVisibility(View.GONE);
+
         hajime.setOnClickListener {
             listen()
+            hajime.setVisibility(View.GONE);
+            stop.setVisibility(View.VISIBLE);
+            hajime.text="Start"
         }
         stop.setOnClickListener {
+            stop.setVisibility(View.GONE);
+            hajime.setVisibility(View.VISIBLE);
             AlertDialog.Builder(context) // FragmentではActivityを取得して生成
-                .setTitle("Stop")
-                .setMessage("メッセージ")
-                .setPositiveButton("続ける", { dialog, which ->
+                .setTitle("一時停止中")
+                .setMessage("")
+                .setNegativeButton("キャンセル", { dialog, which ->
+                    hajime.text="Restart";
+                    hajime.setVisibility(View.VISIBLE);
+                    stop.setVisibility(View.VISIBLE);
                 })
-                .setNegativeButton("終了する", { dialog, which ->
+                .setPositiveButton("終了する", { dialog, which ->
                     val pref: SharedPreferences =
                         requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
                     val editor: SharedPreferences.Editor = pref.edit()

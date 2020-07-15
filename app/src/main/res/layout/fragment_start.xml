@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#87cefa">
+    android:background="#00cba4">
 
     <TextView
         android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/suez_one"
         android:gravity="center"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:text="Start"
         android:textColor="#ffffff"
-        android:textSize="48sp"
+        android:textSize="52sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

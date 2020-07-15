@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#87cefa">
+    android:background="#f6f6f6">
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/suez_one"
         android:text="Result"
-        android:textColor="#ffffff"
+        android:textColor="#4d4d4d"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,26 +47,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
+                    android:fontFamily="@font/suez_one"
                     android:textColor="#4d4d4d" />
             </ScrollView>
 
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="32dp" />
+                android:layout_marginTop="32dp"
+                android:background="@drawable/round" />
         </LinearLayout>
     </ScrollView>
 
     <TextView
         android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:background="@drawable/round_color"
+        android:fontFamily="@font/suez_one"
+        android:gravity="center"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
         android:text="Back to Top"
         android:textColor="#ffffff"
-        android:textSize="36sp"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

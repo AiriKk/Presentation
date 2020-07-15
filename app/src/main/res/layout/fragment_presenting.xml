@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#87cefa">
+    android:background="#f6f6f6">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/suez_one"
         android:text="Speaking..."
-        android:textColor="#ffffff"
+        android:textColor="#4d4d4d"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,23 +56,31 @@
 
         <TextView
             android:id="@+id/hajime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_weight="1"
-            android:paddingRight="32dp"
+            android:background="@drawable/round_color"
+            android:fontFamily="@font/suez_one"
+            android:gravity="center"
             android:text="Start"
             android:textColor="#ffffff"
-            android:textSize="36sp" />
+            android:textSize="34sp" />
 
         <TextView
             android:id="@+id/stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_weight="1"
-            android:paddingLeft="32dp"
+            android:background="@drawable/round_color"
+            android:fontFamily="@font/suez_one"
+            android:gravity="center"
             android:text="Stop"
             android:textColor="#ffffff"
-            android:textSize="36sp" />
+            android:textSize="34sp" />
 
     </LinearLayout>
 
@@ -79,9 +88,10 @@
         android:id="@+id/front"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
+        android:layout_margin="14dp"
+        android:fontFamily="@font/suez_one"
         android:text="←"
-        android:textColor="#ffffff"
+        android:textColor="#4d4d4d"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
