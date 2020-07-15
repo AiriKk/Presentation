@@ -58,8 +58,8 @@ class PresentingFragment : Fragment() {
                 // 内容があれば
                 if (results.size > 0) {
                     // インデックス0の結果を表示
-                    spoken.text = already + results[0]
-                    resultText = already + results[0]
+                    spoken.text = already + results[0] + "。"
+                    resultText = already + results[0] + "。"
                 }
             }
         }
