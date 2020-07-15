@@ -41,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:fontFamily="sans-serif"
             android:textColor="#4d4d4d" />
     </ScrollView>
 

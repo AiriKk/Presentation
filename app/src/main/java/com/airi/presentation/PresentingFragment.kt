@@ -78,10 +78,10 @@ class PresentingFragment : Fragment() {
         stop.setOnClickListener {
             stop.setVisibility(View.GONE);
             hajime.setVisibility(View.VISIBLE);
-            already = spoken.getContext().toString();
+            already = resultText;
             AlertDialog.Builder(context) // FragmentではActivityを取得して生成
-                .setTitle("一時停止中")
-                .setMessage("")
+                .setTitle("")
+                .setMessage("一時停止中")
                 .setNegativeButton("キャンセル") { dialog, which ->
                     hajime.text="Restart";
                     hajime.setVisibility(View.VISIBLE);
@@ -101,8 +101,8 @@ class PresentingFragment : Fragment() {
 
         front.setOnClickListener {
             AlertDialog.Builder(context) // FragmentではActivityを取得して生成
-                .setTitle("本当にやめますか")
-                .setMessage("")
+                .setTitle("")
+                .setMessage("本当にやめますか")
                 .setNegativeButton("キャンセル") { dialog, which ->
                 }
                 .setPositiveButton("やめる") { dialog, which ->
