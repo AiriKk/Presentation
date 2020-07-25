@@ -1,19 +1,28 @@
 package com.airi.presentation
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.media.MediaRecorder
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_presenting.*
+import java.io.IOException
 import java.util.*
 
 class PresentingFragment : Fragment() {
@@ -64,6 +73,7 @@ class PresentingFragment : Fragment() {
             }
         }
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -73,7 +83,7 @@ class PresentingFragment : Fragment() {
             listen()
             hajime.setVisibility(View.GONE);
             stop.setVisibility(View.VISIBLE);
-            hajime.text="Start"
+            hajime.text = "Start"
         }
         stop.setOnClickListener {
             stop.setVisibility(View.GONE);
@@ -83,7 +93,7 @@ class PresentingFragment : Fragment() {
                 .setTitle("")
                 .setMessage("一時停止中")
                 .setNegativeButton("キャンセル") { dialog, which ->
-                    hajime.text="Restart";
+                    hajime.text = "Restart";
                     hajime.setVisibility(View.VISIBLE);
                     stop.setVisibility(View.VISIBLE);
                 }
@@ -110,5 +120,6 @@ class PresentingFragment : Fragment() {
                 }
                 .show()
         }
-        }
     }
+
+}

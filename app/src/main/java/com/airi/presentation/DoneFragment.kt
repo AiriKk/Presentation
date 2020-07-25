@@ -14,15 +14,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_done.*
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
 import org.json.JSONException
+import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserException
+import org.xmlpull.v1.XmlPullParserFactory
+import java.io.ByteArrayInputStream
 import java.io.IOException
+import java.io.InputStream
 
 class DoneFragment : Fragment() {
 
@@ -53,7 +57,7 @@ class DoneFragment : Fragment() {
                 Log.d("faild", e.message)
             }
 
-            override fun onResponse(call: okhttp3.Call, response: Response) {
+            override fun onResponse(call: Call, response: Response) {
 //                    Log.d("###", response.message)
                 val responseText: String? = response.body?.string()
                 Log.d("###", "あと一歩")
@@ -62,11 +66,21 @@ class DoneFragment : Fragment() {
                 try {
                     mainHandler.post {
                         sentences.text = kekka
-//                        sentences.text = responseText
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
+                val list = parseXml(responseText!!)
+
+                // adapterを作成します
+//                val adapter = ArrayAdapter(
+//                    this,
+//                    android.R.layout.simple_list_item_1,
+//                    list
+//                )
+//
+//                // adapterをlistViewに紐付けます。
+//                lists.adapter = adapter
 
             }
         })
@@ -86,5 +100,38 @@ class DoneFragment : Fragment() {
         back.setOnClickListener {
             findNavController().navigate(R.id.action_DoneFragment_to_StartFragment)
         }
+    }
+
+    @Throws(XmlPullParserException::class, IOException::class)
+    private fun parseXml(inputString:String) : MutableList<String> {
+        //配列の初期化・宣言
+        var list = mutableListOf<String>()
+        val factory =
+            XmlPullParserFactory.newInstance()
+        val parser = factory.newPullParser()
+        val responseInputStream: InputStream = ByteArrayInputStream(inputString.toByteArray(charset("utf-8")))
+        parser.setInput(responseInputStream,"utf-8")
+        var eventType = parser.eventType
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.START_TAG) {
+                Log.d(parser.name, "Startタグでした")
+                if (parser.name == "surface") {
+                    //配列に代入
+                    list.add(parser.nextText())
+
+                }
+                if (parser.name == "feature") {
+                }
+            }
+            else if(eventType == XmlPullParser.TEXT) {
+                Log.d(parser.name, "要素でした")
+            }
+            else if(eventType == XmlPullParser.END_TAG){
+                Log.d(parser.name, "Endタグでした")
+
+            }
+            eventType = parser.next()
+        }
+        return list
     }
 }
