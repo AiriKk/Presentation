@@ -73,14 +73,14 @@ class DoneFragment : Fragment() {
                 val list = parseXml(responseText!!)
 
                 // adapterを作成します
-//                val adapter = ArrayAdapter(
-//                    this,
-//                    android.R.layout.simple_list_item_1,
-//                    list
-//                )
-//
-//                // adapterをlistViewに紐付けます。
-//                lists.adapter = adapter
+                val adapter = ArrayAdapter(
+                    context,
+                    android.R.layout.simple_list_item_1,
+                    list
+                )
+                // adapterをlistViewに紐付けます。
+                lists.adapter = adapter
+
 
             }
         })
