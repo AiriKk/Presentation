@@ -66,21 +66,36 @@ class DoneFragment : Fragment() {
                 try {
                     mainHandler.post {
                         sentences.text = kekka
+
+                        val list = parseXml(responseText!!)
+
+                        // adapterを作成します
+                        val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, list)
+
+                        // adapterをlistViewに紐付けます。
+                        lists.adapter = adapter
+
+
+                        var countArray = arrayOf<Pair<String,Int>>()
+                        for (word in list){
+                            var isAdd = true
+                            for (i in countArray.indices ) {
+                                if (countArray[i].first == word) {
+                                    countArray[i] = Pair(word,countArray[i].second + 1)
+                                    isAdd = false
+                                    break
+                                }
+                            }
+                            if (isAdd) {
+                                countArray += Pair(word,1)
+                            }
+                        }
+//                        println(countArray.flatMap { listOf(it.first, it.second) })
                     }
+
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
-                val list = parseXml(responseText!!)
-
-                // adapterを作成します
-                val adapter = ArrayAdapter(
-                    context,
-                    android.R.layout.simple_list_item_1,
-                    list
-                )
-                // adapterをlistViewに紐付けます。
-                lists.adapter = adapter
-
 
             }
         })
