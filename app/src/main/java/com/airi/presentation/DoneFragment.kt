@@ -14,8 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.ArrayAdapter
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_done.*
@@ -50,10 +49,9 @@ class DoneFragment : Fragment() {
             .add("dic", "")
             .build()
 
-
         val request = Request.Builder().url(url).post(body).build()
-        client.newCall(request).enqueue(object : okhttp3.Callback {
-            override fun onFailure(call: okhttp3.Call, e: IOException) {
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.d("faild", e.message)
             }
 
@@ -70,7 +68,7 @@ class DoneFragment : Fragment() {
                         val list = parseXml(responseText!!)
 
                         // adapterを作成します
-                        val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, list)
+                        val adapter = CountAdapter(requireActivity(), returnListViewItems(list))
 
                         // adapterをlistViewに紐付けます。
                         lists.adapter = adapter
@@ -91,6 +89,7 @@ class DoneFragment : Fragment() {
                             }
                         }
 //                        println(countArray.flatMap { listOf(it.first, it.second) })
+//                        return countArray
                     }
 
                 } catch (e: JSONException) {
@@ -112,9 +111,39 @@ class DoneFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val editText = editText.findViewById(R.id.editText) as EditText
+        val title = editText.text.toString()
+
         back.setOnClickListener {
+            if(editText.text != null){
+                val textTitle = editText.text.toString()
+//            レルムにタイトルと本文をidを鍵にして保存する
+        }
             findNavController().navigate(R.id.action_DoneFragment_to_StartFragment)
         }
+    }
+
+    fun returnListViewItems(list: MutableList<String>): Array<Pair<String,Int>>  {
+
+        val array = list.toList()
+        var words = 0
+        var countArray = arrayOf<Pair<String,Int>>()
+        for (word in array){
+            var isAdd = true
+            for (i in countArray.indices ) {
+                if (countArray[i].first == word) {
+                    countArray[i] = Pair(word,countArray[i].second + 1)
+                    isAdd = false
+                    words = words + 1
+                    break
+                }
+                    wordCount.text = word+"words"
+            }
+            if (isAdd) {
+                countArray += Pair(word,1)
+            }
+        }
+        return countArray
     }
 
     @Throws(XmlPullParserException::class, IOException::class)

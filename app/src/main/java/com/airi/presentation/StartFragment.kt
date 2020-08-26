@@ -26,5 +26,9 @@ class StartFragment : Fragment() {
             //fragment遷移
             findNavController().navigate(R.id.action_StartFragment_to_PresentingFragment)
         }
+        previous.setOnClickListener {
+            //fragment遷移
+            findNavController().navigate(R.id.action_StartFragment_to_FilesFragment)
+        }
     }
 }

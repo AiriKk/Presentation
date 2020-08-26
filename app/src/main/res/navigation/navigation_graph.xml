@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_StartFragment_to_PresentingFragment"
             app:destination="@id/PresentingFragment" />
+        <action
+            android:id="@+id/action_StartFragment_to_FilesFragment"
+            app:destination="@id/FilesFragment" />
     </fragment>
     <fragment
         android:id="@+id/PresentingFragment"
@@ -29,6 +32,15 @@
         tools:layout="@layout/fragment_done">
         <action
             android:id="@+id/action_DoneFragment_to_StartFragment"
+            app:destination="@id/StartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/FilesFragment"
+        android:name="com.airi.presentation.FilesFragment"
+        android:label="FilesFragment"
+        tools:layout="@layout/fragment_files" >
+        <action
+            android:id="@+id/action_FilesFragment_to_StartFragment"
             app:destination="@id/StartFragment" />
     </fragment>
 
