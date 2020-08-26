@@ -53,7 +53,7 @@ class PresentingFragment : Fragment() {
             startActivityForResult(intent, REQUEST_CODE)
         } catch (e: ActivityNotFoundException) {
             e.printStackTrace()
-            spoken.setText(e.message)
+            spoken.text = e.message
         }
     }
 
@@ -67,8 +67,8 @@ class PresentingFragment : Fragment() {
                 // 内容があれば
                 if (results.size > 0) {
                     // インデックス0の結果を表示
-                    spoken.setText(already + results[0] + "。")
-                    resultText = already + results[0] + "。"
+                    spoken.text = already + results[0] + " "
+                    resultText = already + results[0] + " "
                 }
             }
         }

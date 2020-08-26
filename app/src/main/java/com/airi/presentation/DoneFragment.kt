@@ -137,12 +137,13 @@ class DoneFragment : Fragment() {
                     words = words + 1
                     break
                 }
-                    wordCount.text = word+"words"
             }
             if (isAdd) {
                 countArray += Pair(word,1)
+                words = words + 1
             }
         }
+        wordCount.text = words.toString()+"語"
         return countArray
     }
 

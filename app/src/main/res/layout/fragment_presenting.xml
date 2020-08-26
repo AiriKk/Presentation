@@ -37,14 +37,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <EditText
+        <TextView
             android:id="@+id/spoken"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#00000000"
-            android:ems="10"
-            android:hint="音声入力または文章を直接入力ください。"
-            android:inputType="textPersonName"
             android:textSize="14sp" />
     </ScrollView>
 
