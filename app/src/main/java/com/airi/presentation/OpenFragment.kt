@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_open.*
 
-class OpenFragmentclass  : Fragment(){
+class OpenFragment : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -15,4 +17,13 @@ class OpenFragmentclass  : Fragment(){
         val view = inflater.inflate(R.layout.fragment_open, container, false)
         return view
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        back2.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
 }

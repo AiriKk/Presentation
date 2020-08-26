@@ -111,8 +111,11 @@ class DoneFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //ここの時間の表示方法ってもっと良いやり方ないのかな、、
         val editText = editText.findViewById(R.id.editText) as EditText
-        val title = editText.text.toString()
+        val pref: SharedPreferences = requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
+        val timeText = pref.getString("Time","00:00:00")
+        time.text =timeText
 
         back.setOnClickListener {
             if(editText.text != null){

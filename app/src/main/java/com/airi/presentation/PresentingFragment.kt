@@ -1,28 +1,21 @@
 package com.airi.presentation
 
-import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import android.media.MediaRecorder
 import android.os.Bundle
+import android.os.Handler
 import android.speech.RecognizerIntent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_done.*
 import kotlinx.android.synthetic.main.fragment_presenting.*
-import java.io.IOException
 import java.util.*
 
 class PresentingFragment : Fragment() {
@@ -78,16 +71,38 @@ class PresentingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         stop.setVisibility(View.GONE);
+        lateinit var pTimer: Timer
+        val pHandler = Handler()
+        var time = 0
 
         hajime.setOnClickListener {
             listen()
             hajime.setVisibility(View.GONE);
             stop.setVisibility(View.VISIBLE);
             hajime.text = "Start"
+            pTimer = Timer()
+            pTimer.schedule(object : TimerTask() {
+                override fun run() {
+                    pHandler.post {
+                        time++
+                        val hour = time / 3600
+                        val min = (time - hour * 3600) / 60
+                        val sec = time % 60
+                        val hourText = String.format("%02d", hour)
+                        val minText = String.format("%02d", min)
+                        val secText = String.format("%02d", sec)
+
+                        timer.text = "${hourText}:${minText}:${secText}"
+
+                    }
+                }
+            }, 1000, 1000)
         }
+
         stop.setOnClickListener {
             stop.setVisibility(View.GONE);
             hajime.setVisibility(View.VISIBLE);
+            pTimer.cancel()
             already = resultText;
             AlertDialog.Builder(context) // FragmentではActivityを取得して生成
                 .setTitle("")
@@ -102,6 +117,8 @@ class PresentingFragment : Fragment() {
                         requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
                     val editor: SharedPreferences.Editor = pref.edit()
                     editor.putString("sentences", resultText)
+                    val timerText = timer.text.toString()
+                    editor.putString("Time", timerText)
                     editor.commit()
 
                     findNavController().navigate(R.id.action_PresentingFragment_to_DoneFragment)

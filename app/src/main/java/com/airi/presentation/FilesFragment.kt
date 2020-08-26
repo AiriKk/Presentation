@@ -22,7 +22,10 @@ class FilesFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         cancel.setOnClickListener {
-            findNavController().navigate(R.id.action_FilesFragment_to_StartFragment)
+            findNavController().popBackStack()
+        }
+        cancel.setOnClickListener {
+            findNavController().navigate(R.id.action_FilesFragment_to_OpenFragment)
         }
     }
 }

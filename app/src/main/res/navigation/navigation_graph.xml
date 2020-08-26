@@ -40,8 +40,13 @@
         android:label="FilesFragment"
         tools:layout="@layout/fragment_files" >
         <action
-            android:id="@+id/action_FilesFragment_to_StartFragment"
-            app:destination="@id/StartFragment" />
+            android:id="@+id/action_FilesFragment_to_OpenFragment"
+            app:destination="@id/OpenFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/OpenFragment"
+        android:name="com.airi.presentation.OpenFragment"
+        android:label="OpenFragment"
+        tools:layout="@layout/fragment_open"/>
 
 </navigation>
