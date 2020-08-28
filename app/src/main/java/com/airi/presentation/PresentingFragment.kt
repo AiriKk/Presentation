@@ -102,6 +102,7 @@ class PresentingFragment : Fragment() {
         stop.setOnClickListener {
             stop.setVisibility(View.GONE);
             hajime.setVisibility(View.VISIBLE);
+            //タイマーを消すとき、これだと自分で押さないと消えない、でも本当は認識が終わった瞬間にタイマーを止めたいからもっと良い方法はある？
             pTimer.cancel()
             already = resultText;
             AlertDialog.Builder(context) // FragmentではActivityを取得して生成
