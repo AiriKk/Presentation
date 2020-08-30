@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import io.realm.Realm
 import kotlinx.android.synthetic.main.fragment_done.*
 import okhttp3.*
 import org.json.JSONException
@@ -26,8 +27,11 @@ import org.xmlpull.v1.XmlPullParserFactory
 import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStream
+import java.util.*
 
 class DoneFragment : Fragment() {
+
+    var mRealm:Realm? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -117,15 +121,32 @@ class DoneFragment : Fragment() {
         val timeText = pref.getString("Time","00:00:00")
         time.text =timeText
 
+        Realm.init(context)
+        mRealm = Realm.getDefaultInstance()
+
         back.setOnClickListener {
             if(editText.text != null){
                 val textTitle = editText.text.toString()
+                val sentences = sentences.text.toString()
 //            レルムにタイトルと本文をidを鍵にして保存する
+                create(title = textTitle, bunshou = sentences)
         }
             findNavController().navigate(R.id.action_DoneFragment_to_StartFragment)
         }
     }
 
+    fun create(title:String, bunshou:String){
+        mRealm!!.executeTransaction {
+            var saved = mRealm!!.createObject(Saved::class.java , UUID.randomUUID().toString())
+            saved.title = title
+            saved.bunshou = bunshou
+            mRealm!!.copyToRealm(saved)
+        }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        mRealm!!.close()
+    }
     fun returnListViewItems(list: MutableList<String>): Array<Pair<String,Int>>  {
 
         val array = list.toList()
