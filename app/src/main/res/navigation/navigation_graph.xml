@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_FilesFragment_to_OpenFragment"
             app:destination="@id/OpenFragment" />
+        <action
+            android:id="@+id/action_FilesFragment_to_StartFragment"
+            app:destination="@id/StartFragment" />
     </fragment>
     <fragment
         android:id="@+id/OpenFragment"

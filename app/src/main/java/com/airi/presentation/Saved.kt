@@ -7,7 +7,7 @@ import java.util.*
 
 class Saved : RealmObject(){
     @PrimaryKey
-    var id : String = ""
+    var id : String = UUID.randomUUID().toString()
     @Required
     var title : String = ""
     var bunshou : String = ""

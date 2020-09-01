@@ -40,9 +40,6 @@ class FilesFragment : Fragment(){
         cancel.setOnClickListener {
             findNavController().popBackStack()
         }
-        cancel.setOnClickListener {
-            findNavController().navigate(R.id.action_FilesFragment_to_OpenFragment)
-        }
     }
     fun read() : RealmResults<Saved> {
         return mRealm!!.where(Saved::class.java).findAll()

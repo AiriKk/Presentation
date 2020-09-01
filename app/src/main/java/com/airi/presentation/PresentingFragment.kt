@@ -39,7 +39,7 @@ class PresentingFragment : Fragment() {
         // 言語が日本語
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.JAPAN.toString())
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 10)
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "音声聞き取り中")
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "音声聞き取り中...")
 
         try {
             // インテントを発行
@@ -128,6 +128,7 @@ class PresentingFragment : Fragment() {
         }
 
         front.setOnClickListener {
+            pTimer.cancel()
             AlertDialog.Builder(context) // FragmentではActivityを取得して生成
                 .setTitle("")
                 .setMessage("本当にやめますか")
