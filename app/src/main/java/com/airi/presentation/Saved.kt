@@ -5,7 +5,7 @@ import io.realm.annotations.PrimaryKey
 import io.realm.annotations.Required
 import java.util.*
 
-class Saved : RealmObject(){
+open class Saved : RealmObject(){
     @PrimaryKey
     var id : String = UUID.randomUUID().toString()
     @Required

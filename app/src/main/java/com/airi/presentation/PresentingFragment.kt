@@ -74,8 +74,10 @@ class PresentingFragment : Fragment() {
         lateinit var pTimer: Timer
         val pHandler = Handler()
         var time = 0
+        var timed = false
 
         hajime.setOnClickListener {
+            timed =true
             listen()
             hajime.setVisibility(View.GONE);
             stop.setVisibility(View.VISIBLE);
@@ -102,8 +104,7 @@ class PresentingFragment : Fragment() {
         stop.setOnClickListener {
             stop.setVisibility(View.GONE);
             hajime.setVisibility(View.VISIBLE);
-            //タイマーを消すとき、これだと自分で押さないと消えない、でも本当は認識が終わった瞬間にタイマーを止めたいからもっと良い方法はある？
-            pTimer.cancel()
+                pTimer.cancel()
             already = resultText;
             AlertDialog.Builder(context) // FragmentではActivityを取得して生成
                 .setTitle("")
@@ -118,8 +119,7 @@ class PresentingFragment : Fragment() {
                         requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
                     val editor: SharedPreferences.Editor = pref.edit()
                     editor.putString("sentences", resultText)
-                    val timerText = timer.text.toString()
-                    editor.putString("Time", timerText)
+                    editor.putInt("Time", time)
                     editor.commit()
 
                     findNavController().navigate(R.id.action_PresentingFragment_to_DoneFragment)
@@ -128,7 +128,10 @@ class PresentingFragment : Fragment() {
         }
 
         front.setOnClickListener {
-            pTimer.cancel()
+            if(timed == true){
+                pTimer.cancel()
+                timed =false
+            }
             AlertDialog.Builder(context) // FragmentではActivityを取得して生成
                 .setTitle("")
                 .setMessage("本当にやめますか")

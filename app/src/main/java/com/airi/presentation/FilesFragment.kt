@@ -11,6 +11,9 @@ import io.realm.Realm
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.fragment_files.*
 
+
+
+
 class FilesFragment : Fragment(){
 
     var mRealm: Realm? = null
@@ -31,7 +34,7 @@ class FilesFragment : Fragment(){
 
         val data = read()
         val adapter = ArrayAdapter(
-            context,
+             context,
             android.R.layout.simple_list_item_1,
             data
         )
@@ -43,6 +46,9 @@ class FilesFragment : Fragment(){
     }
     fun read() : RealmResults<Saved> {
         return mRealm!!.where(Saved::class.java).findAll()
+//            .contains("title", "").contains("honbun", "").
+//        var taitoru = mRealm!!.where(Saved::class.java).equalTo("title","").findFirst()
+//        var honbun = mRealm!!.where(Saved::class.java).equalTo("honbun","").findFirst()
     }
     override fun onDestroy() {
         super.onDestroy()

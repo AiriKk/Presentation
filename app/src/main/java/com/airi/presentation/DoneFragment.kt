@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import io.realm.Realm
 import kotlinx.android.synthetic.main.fragment_done.*
+import kotlinx.android.synthetic.main.fragment_presenting.*
 import okhttp3.*
 import org.json.JSONException
 import org.xmlpull.v1.XmlPullParser
@@ -112,19 +113,30 @@ class DoneFragment : Fragment() {
         return view
     }
 
+    val pref: SharedPreferences = requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
+    val time = pref.getInt("Time",0)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         //ここの時間の表示方法ってもっと良いやり方ないのかな、、
         val editText = editText.findViewById(R.id.editText) as EditText
-        val pref: SharedPreferences = requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
-        val timeText = pref.getString("Time","00:00:00")
-        time.text =timeText
+        val hour = time / 3600
+        val min = (time - hour * 3600) / 60
+        val sec = time % 60
+        val hourText = String.format("%02d", hour)
+        val minText = String.format("%02d", min)
+        val secText = String.format("%02d", sec)
+
+        timerr.text = "${hourText}:${minText}:${secText}"
 
         Realm.init(context)
         mRealm = Realm.getDefaultInstance()
 
         back.setOnClickListener {
+            val editor: SharedPreferences.Editor = pref.edit()
+            editor.putString("Speed", speed)
+            editor.commit()
+
             if(editText.text != null){
                 val textTitle = editText.text.toString()
                 val sentences = sentences.text.toString()
@@ -132,6 +144,9 @@ class DoneFragment : Fragment() {
                 create(title = textTitle, bunshou = sentences)
         }
             findNavController().navigate(R.id.action_DoneFragment_to_StartFragment)
+        }
+        scoreB.setOnClickListener {
+            findNavController().navigate(R.id.action_DoneFragment_to_ScoreFragment)
         }
     }
 
@@ -147,10 +162,10 @@ class DoneFragment : Fragment() {
         super.onDestroy()
         mRealm!!.close()
     }
+    var words = 0
     fun returnListViewItems(list: MutableList<String>): Array<Pair<String,Int>>  {
 
         val array = list.toList()
-        var words = 0
         var countArray = arrayOf<Pair<String,Int>>()
         for (word in array){
             var isAdd = true
@@ -170,6 +185,7 @@ class DoneFragment : Fragment() {
         wordCount.text = words.toString()+"語"
         return countArray
     }
+    val speed = ((time /words)*60).toString()+"語/min"
 
     @Throws(XmlPullParserException::class, IOException::class)
     private fun parseXml(inputString:String) : MutableList<String> {

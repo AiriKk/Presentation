@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_DoneFragment_to_StartFragment"
             app:destination="@id/StartFragment" />
+        <action
+            android:id="@+id/action_DoneFragment_to_ScoreFragment"
+            app:destination="@id/ScoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/FilesFragment"
@@ -51,5 +54,10 @@
         android:name="com.airi.presentation.OpenFragment"
         android:label="OpenFragment"
         tools:layout="@layout/fragment_open"/>
+    <fragment
+    android:id="@+id/ScoreFragment"
+    android:name="com.airi.presentation.ScoreFragment"
+    android:label="ScoreFragment"
+    tools:layout="@layout/fragment_score" />
 
 </navigation>
