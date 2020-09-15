@@ -6,34 +6,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-class FileAdapter (private val activity: Activity, private val items: Array<Saved>) : BaseAdapter() {
-    private class ViewHolder(row: View) {
-        val textView = row.findViewById(R.id.textView) as TextView
+import androidx.recyclerview.widget.RecyclerView
+import io.realm.OrderedRealmCollection
+import io.realm.RealmRecyclerViewAdapter
+
+class FileAdapter (
+    private val context: Context,
+    private var taskList: OrderedRealmCollection<Saved>?,
+    private val autoUpdate: Boolean
+) :
+    RealmRecyclerViewAdapter<Saved, FileAdapter.FileViewHolder>(taskList, autoUpdate) {
+
+    override fun getItemCount(): Int = taskList?.size ?: 0
+
+    override fun onBindViewHolder(holder: FileViewHolder, position: Int) {
+        val saved: Saved = taskList?.get(position) ?: return
+
+        holder.titleTextView.text = saved.title
     }
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View
-        val viewHolder: ViewHolder
-        if (convertView == null) {
-            val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            view = inflater.inflate(android.R.layout.simple_list_item_1, convertView)
-            viewHolder = ViewHolder(view)
-            view.tag = viewHolder
-        } else {
-            view = convertView
-            viewHolder = view.tag as ViewHolder
-        }
-        val item = items[position]
-        viewHolder.textView.text = item.title
-        return view
+
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): FileViewHolder {
+        val v = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, viewGroup, false)
+        return FileViewHolder(v)
     }
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-    override fun getItem(position: Int): Any {
-        return items[position]
-    }
-    override fun getCount(): Int {
-        return items.size
+
+    class FileViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val titleTextView: TextView = view.findViewById(R.id.textView)
     }
 
 }

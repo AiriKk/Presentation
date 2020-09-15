@@ -5,13 +5,13 @@ import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.speech.RecognizerIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_done.*
@@ -115,12 +115,9 @@ class PresentingFragment : Fragment() {
                     stop.setVisibility(View.VISIBLE);
                 }
                 .setPositiveButton("終了する") { dialog, which ->
-                    val pref: SharedPreferences =
-                        requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
-                    val editor: SharedPreferences.Editor = pref.edit()
-                    editor.putString("sentences", resultText)
-                    editor.putInt("Time", time)
-                    editor.commit()
+
+                    val Times = bundleOf("time" to time)
+                    val Sentences = bundleOf("sentences" to resultText)
 
                     findNavController().navigate(R.id.action_PresentingFragment_to_DoneFragment)
                 }

@@ -26,13 +26,12 @@ class ScoreFragment : Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-            val pref: SharedPreferences = requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
-        val sokudo = pref.getString("Speed","測定できませんでした")
-        Sokudo.text =sokudo
+//            val pref: SharedPreferences = requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
+//        val sokudo = pref.getString("Speed","測定できませんでした")
+//        Sokudo.text =sokudo
 
         B2don.setOnClickListener {
             findNavController().popBackStack()
         }
     }
-
 }

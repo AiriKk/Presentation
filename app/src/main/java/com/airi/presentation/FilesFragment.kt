@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.realm.Realm
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.fragment_files.*
@@ -33,12 +34,17 @@ class FilesFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         val data = read()
-        val adapter = ArrayAdapter(
-             context,
-            android.R.layout.simple_list_item_1,
-            data
-        )
-        files.adapter = adapter
+//        val adapter = ArrayAdapter(
+//             context,
+//            android.R.layout.simple_list_item_1,
+//            data
+//        )
+
+        val adapter = FileAdapter(requireContext(), data, true)
+
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
 
         cancel.setOnClickListener {
             findNavController().popBackStack()

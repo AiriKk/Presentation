@@ -6,7 +6,6 @@ package com.airi.presentation
 //import com.github.kittinunf.fuel.httpGet
 //import com.github.kittinunf.result.Result
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -41,8 +40,7 @@ class DoneFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_done, container, false)
 
-        val pref: SharedPreferences = requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
-        val kekka = pref.getString("sentences","読み込めませんでした")
+        val kekka = requireArguments()!!.getString("sentences")
         Log.d("###", "setOnClickListener")
         val client: OkHttpClient = OkHttpClient()
         val url: String = "http://maapi.net/apis/mecapi?"
@@ -93,8 +91,6 @@ class DoneFragment : Fragment() {
                                 countArray += Pair(word,1)
                             }
                         }
-//                        println(countArray.flatMap { listOf(it.first, it.second) })
-//                        return countArray
                     }
 
                 } catch (e: JSONException) {
@@ -104,28 +100,26 @@ class DoneFragment : Fragment() {
             }
         })
 
-//        "http://maapi.net/apis/mecapi".httpGet()
-//            .response { request: Request, response: Response, result: Result<ByteArray, FuelError> ->
-//            }
 
 
 
         return view
     }
 
-    val pref: SharedPreferences = requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
-    val time = pref.getInt("Time",0)
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val time = requireArguments()!!.getInt("time")
+    val hour = time / 3600
+    val min = (time - hour * 3600) / 60
+    val sec = time % 60
+    val hourText = String.format("%02d", hour)
+    val minText = String.format("%02d", min)
+    val secText = String.format("%02d", sec)
 
         //ここの時間の表示方法ってもっと良いやり方ないのかな、、
         val editText = editText.findViewById(R.id.editText) as EditText
-        val hour = time / 3600
-        val min = (time - hour * 3600) / 60
-        val sec = time % 60
-        val hourText = String.format("%02d", hour)
-        val minText = String.format("%02d", min)
-        val secText = String.format("%02d", sec)
 
         timerr.text = "${hourText}:${minText}:${secText}"
 
@@ -133,9 +127,6 @@ class DoneFragment : Fragment() {
         mRealm = Realm.getDefaultInstance()
 
         back.setOnClickListener {
-            val editor: SharedPreferences.Editor = pref.edit()
-            editor.putString("Speed", speed)
-            editor.commit()
 
             if(editText.text != null){
                 val textTitle = editText.text.toString()
@@ -185,7 +176,7 @@ class DoneFragment : Fragment() {
         wordCount.text = words.toString()+"語"
         return countArray
     }
-    val speed = ((time /words)*60).toString()+"語/min"
+//    val speed = ((time /words)*60).toString()+"語/min"
 
     @Throws(XmlPullParserException::class, IOException::class)
     private fun parseXml(inputString:String) : MutableList<String> {
