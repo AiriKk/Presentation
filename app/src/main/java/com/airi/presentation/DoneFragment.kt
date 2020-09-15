@@ -39,8 +39,11 @@ class DoneFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_done, container, false)
+        var kekka = ""
+        requireArguments()?.let {
+            kekka = requireArguments().getString("sentences") ?:""
+        }
 
-        val kekka = requireArguments()!!.getString("sentences")
         Log.d("###", "setOnClickListener")
         val client: OkHttpClient = OkHttpClient()
         val url: String = "http://maapi.net/apis/mecapi?"

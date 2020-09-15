@@ -116,10 +116,9 @@ class PresentingFragment : Fragment() {
                 }
                 .setPositiveButton("終了する") { dialog, which ->
 
-                    val Times = bundleOf("time" to time)
-                    val Sentences = bundleOf("sentences" to resultText)
+                    val params = bundleOf("time" to time, "sentences" to resultText)
 
-                    findNavController().navigate(R.id.action_PresentingFragment_to_DoneFragment)
+                    findNavController().navigate(R.id.action_PresentingFragment_to_DoneFragment, params)
                 }
                 .show()
         }

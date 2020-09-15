@@ -1,10 +1,8 @@
 package com.airi.presentation
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.OrderedRealmCollection
@@ -26,12 +24,12 @@ class FileAdapter (
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): FileViewHolder {
-        val v = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, viewGroup, false)
+        val v = LayoutInflater.from(context).inflate(R.layout.file_item, viewGroup, false)
         return FileViewHolder(v)
     }
 
     class FileViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val titleTextView: TextView = view.findViewById(R.id.textView)
+        val titleTextView: TextView = view.findViewById(R.id.filename)
     }
 
 }
