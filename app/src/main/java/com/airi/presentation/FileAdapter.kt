@@ -11,7 +11,8 @@ import io.realm.RealmRecyclerViewAdapter
 class FileAdapter (
     private val context: Context,
     private var taskList: OrderedRealmCollection<Saved>?,
-    private val autoUpdate: Boolean
+    private val autoUpdate: Boolean,
+    private var listener: OnItemClickListener
 ) :
     RealmRecyclerViewAdapter<Saved, FileAdapter.FileViewHolder>(taskList, autoUpdate) {
 
@@ -26,6 +27,14 @@ class FileAdapter (
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): FileViewHolder {
         val v = LayoutInflater.from(context).inflate(R.layout.file_item, viewGroup, false)
         return FileViewHolder(v)
+    }
+    interface OnItemClickListener{
+        fun onItemClickListener(view: View, position: Int, clickedText: String)
+    }
+
+    // リスナー
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        this.listener = listener
     }
 
     class FileViewHolder(view: View) : RecyclerView.ViewHolder(view) {
