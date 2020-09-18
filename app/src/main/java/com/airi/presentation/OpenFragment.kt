@@ -107,7 +107,7 @@ class OpenFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sSentence.text = Ok.toString()
+//        sSentence.text = Ok.toString()
         
         textView5.setVisibility(View.INVISIBLE);
 
