@@ -5,6 +5,8 @@ package com.airi.presentation
 //import com.github.kittinunf.fuel.core.Response
 //import com.github.kittinunf.fuel.httpGet
 //import com.github.kittinunf.result.Result
+import android.app.Activity
+import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import io.realm.Realm
@@ -131,12 +134,18 @@ class DoneFragment : Fragment() {
         back.setOnClickListener {
 
             if(editText.getText().toString().equals("") == false){
-                val textTitle = editText.text.toString()
-                val sentences = sentences.text.toString()
-//            レルムにタイトルと本文をidを鍵にして保存する
-                create(title = textTitle, bunshou = sentences)
 
+                if(sentences.getText().toString().equals("") == false){
+                    val textTitle = editText.text.toString()
+                    val sentences = sentences.text.toString()
+//            レルムにタイトルと本文をidを鍵にして保存する
+                    create(title = textTitle, bunshou = sentences)
+                }
+                else{
+                    Toast.makeText(context,"中身がからなので保存できませんでした",Toast.LENGTH_LONG).show()
+                }
             }
+
             findNavController().navigate(R.id.action_DoneFragment_to_StartFragment)
         }
 //        scoreB.setOnClickListener {

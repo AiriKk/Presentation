@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,7 +47,8 @@ class FilesFragment : Fragment(){
             override fun onItemClickListener(view: View, position: Int, clickedText: String) {
                 //画面遷移処理
 //                TODO("Not yet implemented")
-                findNavController().navigate(R.id.action_FilesFragment_to_OpenFragment)
+                val par = bundleOf("text" to clickedText)
+                findNavController().navigate(R.id.action_FilesFragment_to_OpenFragment,par)
             }
         })
 //         adapter.setOnItemClickListener(object:FileAdapter.OnItemClickListener{
