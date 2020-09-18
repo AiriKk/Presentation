@@ -42,18 +42,17 @@ class FilesFragment : Fragment(){
 
         val adapter = FileAdapter(requireContext(), data, true)
 
-//        val adapter = FileAdapter(requireContext(), data,
-//            object : FileAdapter.OnItemClickListener {
-//            override fun onItemClick(item: Saved) {
-//                //idでrealmの中身を取得して表示する
-//            }
-//        },
-//            true)
-
-         adapter.setOnItemClickListener(object:FileAdapter.OnItemClickListener{
-             override fun onItemClick(item: Saved){
-                 }
+        adapter.setOnItemClickListener(object:FileAdapter.OnItemClickListener{
+            override fun onItemClickListener(view: View, position: Int, clickedText: String) {
+                //画面遷移処理
+//                TODO("Not yet implemented")
+                findNavController().navigate(R.id.action_FilesFragment_to_OpenFragment)
+            }
         })
+//         adapter.setOnItemClickListener(object:FileAdapter.OnItemClickListener{
+//             override fun onItemClick(item: Saved){
+//                 }
+//        })
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)

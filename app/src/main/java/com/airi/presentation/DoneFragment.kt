@@ -129,17 +129,14 @@ class DoneFragment : Fragment() {
         mRealm = Realm.getDefaultInstance()
 
         back.setOnClickListener {
-            var nul =0
 
-            if(editText==null){
-                nul=1
-            }
-            if(nul==0){
+            if(editText.getText().toString().equals("") == false){
                 val textTitle = editText.text.toString()
                 val sentences = sentences.text.toString()
 //            レルムにタイトルと本文をidを鍵にして保存する
                 create(title = textTitle, bunshou = sentences)
-        }
+
+            }
             findNavController().navigate(R.id.action_DoneFragment_to_StartFragment)
         }
 //        scoreB.setOnClickListener {
