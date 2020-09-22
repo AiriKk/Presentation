@@ -44,10 +44,10 @@ class FilesFragment : Fragment(){
         val adapter = FileAdapter(requireContext(), data, true)
 
         adapter.setOnItemClickListener(object:FileAdapter.OnItemClickListener{
-            override fun onItemClickListener(view: View, position: Int, clickedText: String) {
+            override fun onItemClickListener(view: View, position: Int, clickedText: String ,clickedTitle : String) {
                 //画面遷移処理
 //                TODO("Not yet implemented")
-                val par = bundleOf("text" to clickedText)
+                val par = bundleOf("text" to clickedText,"tTitle" to clickedTitle)
                 findNavController().navigate(R.id.action_FilesFragment_to_OpenFragment,par)
             }
         })

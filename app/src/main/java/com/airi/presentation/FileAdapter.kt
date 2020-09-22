@@ -22,7 +22,7 @@ class FileAdapter (
         val saved: Saved = taskList?.get(position) ?: return
         holder.titleTextView.text = saved.title
         holder.itemView.setOnClickListener{
-            listener.onItemClickListener(it, position, saved.bunshou)
+            listener.onItemClickListener(it, position, saved.bunshou, saved.title)
         }
     }
 
@@ -31,7 +31,7 @@ class FileAdapter (
         return FileViewHolder(v)
     }
     interface OnItemClickListener{
-        fun onItemClickListener(view: View, position: Int, clickedText: String)
+        fun onItemClickListener(view: View, position: Int, clickedText: String ,clickedTitle: String)
     }
 
     // リスナー

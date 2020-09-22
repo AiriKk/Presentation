@@ -15,6 +15,18 @@
         <action
             android:id="@+id/action_StartFragment_to_FilesFragment"
             app:destination="@id/FilesFragment" />
+        <action
+            android:id="@+id/action_StartFragment_to_InfoFragment"
+            app:destination="@id/InfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/InfoFragment"
+        android:name="com.airi.presentation.InfoFragment"
+        android:label="InfoFragment"
+        tools:layout="@layout/fragment_info">
+        <action
+            android:id="@+id/action_InfoFragment_to_StartFragment"
+            app:destination="@id/StartFragment" />
     </fragment>
     <fragment
         android:id="@+id/PresentingFragment"

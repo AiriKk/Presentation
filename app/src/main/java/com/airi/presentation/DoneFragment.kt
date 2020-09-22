@@ -16,11 +16,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.fragment_done.*
+import kotlinx.android.synthetic.main.fragment_open.*
 import okhttp3.*
 import org.json.JSONException
 import org.xmlpull.v1.XmlPullParser
@@ -115,7 +117,8 @@ class DoneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val time = requireArguments()!!.getInt("time")
+        scoreB.setVisibility(View.INVISIBLE);
+    val time = requireArguments()!!.getInt("time")
     val hour = time / 3600
     val min = (time - hour * 3600) / 60
     val sec = time % 60
@@ -138,6 +141,7 @@ class DoneFragment : Fragment() {
                 if(sentences.getText().toString().equals("") == false){
                     val textTitle = editText.text.toString()
                     val sentences = sentences.text.toString()
+                    Toast.makeText(context,"保存しました",Toast.LENGTH_LONG).show()
 //            レルムにタイトルと本文をidを鍵にして保存する
                     create(title = textTitle, bunshou = sentences)
                 }
@@ -145,7 +149,6 @@ class DoneFragment : Fragment() {
                     Toast.makeText(context,"中身がからなので保存できませんでした",Toast.LENGTH_LONG).show()
                 }
             }
-
             findNavController().navigate(R.id.action_DoneFragment_to_StartFragment)
         }
 //        scoreB.setOnClickListener {
