@@ -11,5 +11,7 @@ open class Saved : RealmObject(){
     @Required
     var title : String = ""
     var bunshou : String = ""
+    var time :Int = 0
+    var date :String? = ""
 
 }

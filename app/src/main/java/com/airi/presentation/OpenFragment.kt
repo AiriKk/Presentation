@@ -2,19 +2,15 @@ package com.airi.presentation
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.provider.Contacts.PresenceColumns.INVISIBLE
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import io.realm.Realm
 import kotlinx.android.synthetic.main.fragment_done.*
 import kotlinx.android.synthetic.main.fragment_open.*
 import kotlinx.android.synthetic.main.fragment_open.view.*
-import kotlinx.android.synthetic.main.fragment_presenting.*
 import okhttp3.*
 import org.json.JSONException
 import org.xmlpull.v1.XmlPullParser
@@ -23,7 +19,10 @@ import org.xmlpull.v1.XmlPullParserFactory
 import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStream
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
+
 class OpenFragment : Fragment(){
     //    var oRealm : Realm? = null
     override fun onCreateView(
@@ -36,6 +35,17 @@ class OpenFragment : Fragment(){
         Pkekka = requireArguments().getString("text")?:""
         val TaiToru = requireArguments().getString("tTitle")?:""
         view.sSentence.text = Pkekka
+
+        val Time = requireArguments()!!.getInt("tTime")
+        val hou = Time / 3600
+        val mi = (Time - hou * 3600) / 60
+        val se = Time % 60
+        val hourT = String.format("%02d", hou)
+        val minT = String.format("%02d", mi)
+        val secT = String.format("%02d", se)
+
+
+
         Log.d("###", "setOnClickListener")
         val client: OkHttpClient = OkHttpClient()
         val url: String = "http://maapi.net/apis/mecapi?"
@@ -56,6 +66,7 @@ class OpenFragment : Fragment(){
                     mainHandler.post {
                         view.sSentence.text = Pkekka
                         view.sTitle.text = TaiToru
+                        tim.text = "${hourT}:${minT}:${secT}"
                         val Olist = parseXml(responseText!!)
                         // adapterを作成します
                         val adapter = CountAdapter(requireActivity(), returnListViewItems(Olist))
@@ -92,7 +103,6 @@ class OpenFragment : Fragment(){
         }
     }
 
-    var Owords = 0
     fun returnListViewItems(Olist: MutableList<String>): Array<Pair<String,Int>>  {
         val array = Olist.toList()
         var countArray = arrayOf<Pair<String,Int>>()
@@ -102,16 +112,15 @@ class OpenFragment : Fragment(){
                 if (countArray[i].first == word) {
                     countArray[i] = Pair(word,countArray[i].second + 1)
                     isAdd = false
-                    Owords = Owords + 1
                     break
                 }
             }
             if (isAdd) {
                 countArray += Pair(word,1)
-                Owords = Owords + 1
             }
         }
-        sWords.text = Owords.toString()+"語"
+        val Olength = sSentence.length()
+        sWords.text= (Olength-1).toString()+"文字"
         return countArray
     }
     @Throws(XmlPullParserException::class, IOException::class)

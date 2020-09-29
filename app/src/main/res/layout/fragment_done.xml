@@ -93,7 +93,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="8dp"
                     android:gravity="right|center_vertical"
-                    android:text="語"
+                    android:text="文字"
                     android:textSize="18sp" />
             </LinearLayout>
 

@@ -1,28 +1,21 @@
 package com.airi.presentation
 
-//import com.github.kittinunf.fuel.core.FuelError
-//import com.github.kittinunf.fuel.core.Request
-//import com.github.kittinunf.fuel.core.Response
-//import com.github.kittinunf.fuel.httpGet
-//import com.github.kittinunf.result.Result
-import android.app.Activity
-import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Editable
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import io.realm.Realm
-import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.fragment_done.*
-import kotlinx.android.synthetic.main.fragment_open.*
 import okhttp3.*
 import org.json.JSONException
 import org.xmlpull.v1.XmlPullParser
@@ -31,7 +24,10 @@ import org.xmlpull.v1.XmlPullParserFactory
 import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStream
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.text.Typography.times
 
 class DoneFragment : Fragment() {
 
@@ -113,8 +109,6 @@ class DoneFragment : Fragment() {
         return view
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         scoreB.setVisibility(View.INVISIBLE);
@@ -142,8 +136,10 @@ class DoneFragment : Fragment() {
                     val textTitle = editText.text.toString()
                     val sentences = sentences.text.toString()
                     Toast.makeText(context,"保存しました",Toast.LENGTH_LONG).show()
+                    val date=getNowDate()
 //            レルムにタイトルと本文をidを鍵にして保存する
-                    create(title = textTitle, bunshou = sentences)
+                    create(title = textTitle, bunshou = sentences, ttime = time, date = date)
+
                 }
                 else{
                     Toast.makeText(context,"中身がからなので保存できませんでした",Toast.LENGTH_LONG).show()
@@ -154,21 +150,31 @@ class DoneFragment : Fragment() {
 //        scoreB.setOnClickListener {
 //            findNavController().navigate(R.id.action_DoneFragment_to_ScoreFragment)
 //        }
+
     }
 
-    fun create(title:String, bunshou:String){
+    fun getNowDate(): String? {
+//        val df: DateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+        val df: DateFormat = SimpleDateFormat("yyyy/MM/dd")
+        val datee = Date(System.currentTimeMillis())
+        return df.format(datee)
+    }
+
+    fun create(title:String, bunshou:String,ttime:Int,date:String?){
         mRealm!!.executeTransaction {
             var saved = mRealm!!.createObject(Saved::class.java , UUID.randomUUID().toString())
             saved.title = title
             saved.bunshou = bunshou
+            saved.time = ttime
+            saved.date = date
             mRealm!!.copyToRealm(saved)
         }
+
     }
     override fun onDestroy() {
         super.onDestroy()
         mRealm!!.close()
     }
-    var words = 0
     fun returnListViewItems(list: MutableList<String>): Array<Pair<String,Int>>  {
 
         val array = list.toList()
@@ -179,19 +185,18 @@ class DoneFragment : Fragment() {
                 if (countArray[i].first == word) {
                     countArray[i] = Pair(word,countArray[i].second + 1)
                     isAdd = false
-                    words = words + 1
                     break
                 }
             }
             if (isAdd) {
                 countArray += Pair(word,1)
-                words = words + 1
             }
         }
-        wordCount.text = words.toString()+"語"
+        val length = sentences.length()
+        wordCount.text= (length-1).toString()+"文字"
         return countArray
     }
-//    val speed = ((time /words)*60).toString()+"語/min"
+
 
     @Throws(XmlPullParserException::class, IOException::class)
     private fun parseXml(inputString:String) : MutableList<String> {

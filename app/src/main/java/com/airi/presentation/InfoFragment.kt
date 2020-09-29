@@ -31,5 +31,6 @@ class InfoFragment : Fragment()  {
         inback.setOnClickListener {
             findNavController().navigate(R.id.action_InfoFragment_to_StartFragment)
         }
+
     }
 }

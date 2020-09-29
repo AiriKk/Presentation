@@ -21,8 +21,9 @@ class FileAdapter (
     override fun onBindViewHolder(holder: FileViewHolder, position: Int) {
         val saved: Saved = taskList?.get(position) ?: return
         holder.titleTextView.text = saved.title
+        holder.dateTextView.text = saved.date
         holder.itemView.setOnClickListener{
-            listener.onItemClickListener(it, position, saved.bunshou, saved.title)
+            listener.onItemClickListener(it, position, saved.bunshou, saved.title,saved.time,saved.date)
         }
     }
 
@@ -31,7 +32,7 @@ class FileAdapter (
         return FileViewHolder(v)
     }
     interface OnItemClickListener{
-        fun onItemClickListener(view: View, position: Int, clickedText: String ,clickedTitle: String)
+        fun onItemClickListener(view: View, position: Int, clickedText: String ,clickedTitle: String,clickedTime: Int,clickedDate:String?)
     }
 
     // リスナー
@@ -41,6 +42,8 @@ class FileAdapter (
 
     class FileViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleTextView: TextView = view.findViewById(R.id.filename)
+        val dateTextView: TextView = view.findViewById(R.id.dateText)
+
     }
 
 }
