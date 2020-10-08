@@ -1,6 +1,7 @@
 package com.airi.presentation
 
 import android.os.Bundle
+import android.text.method.TextKeyListener.clear
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,14 +10,13 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import io.realm.Realm
 import io.realm.RealmResults
+import io.realm.log.RealmLog.clear
 import kotlinx.android.synthetic.main.fragment_files.*
 
-
-
-
-class FilesFragment : Fragment(){
+class FilesFragment : Fragment() {
 
     var mRealm: Realm? = null
 
@@ -35,26 +35,23 @@ class FilesFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         val data = read()
-//        val adapter = ArrayAdapter(
-//             context,
-//            android.R.layout.simple_list_item_1,
-//            data
-//        )
 
         val adapter = FileAdapter(requireContext(), data, true)
 
-        adapter.setOnItemClickListener(object:FileAdapter.OnItemClickListener{
-            override fun onItemClickListener(view: View, position: Int, clickedText: String ,clickedTitle : String,clickedTime : Int,clickedDate:String?) {
+        adapter.setOnItemClickListener(object : FileAdapter.OnItemClickListener {
+            override fun onItemClickListener(view: View, position: Int, clickedText: String, clickedTitle: String, clickedTime: Int, clickedDate: String?
+            ) {
                 //画面遷移処理
 //                TODO("Not yet implemented")
-                val par = bundleOf("text" to clickedText,"tTitle" to clickedTitle,"tTime" to clickedTime)
-                findNavController().navigate(R.id.action_FilesFragment_to_OpenFragment,par)
+                val par = bundleOf(
+                    "text" to clickedText,
+                    "tTitle" to clickedTitle,
+                    "tTime" to clickedTime
+                )
+                findNavController().navigate(R.id.action_FilesFragment_to_OpenFragment, par)
             }
+
         })
-//         adapter.setOnItemClickListener(object:FileAdapter.OnItemClickListener{
-//             override fun onItemClick(item: Saved){
-//                 }
-//        })
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -64,12 +61,28 @@ class FilesFragment : Fragment(){
             findNavController().popBackStack()
         }
     }
-    fun read() : RealmResults<Saved> {
+
+    fun read(): RealmResults<Saved> {
         return mRealm!!.where(Saved::class.java).findAll()
-//            .contains("title", "").contains("honbun", "").
-//        var taitoru = mRealm!!.where(Saved::class.java).equalTo("title","").findFirst()
-//        var honbun = mRealm!!.where(Saved::class.java).equalTo("honbun","").findFirst()
     }
+//    fun delete(task: Saved) : RealmResults<Saved> {
+//        mRealm!!.executeTransaction {
+//            task.deleteFromRealm()
+//        }
+//        return mRealm!!.where(Saved::class.java).findAll()
+//    }
+
+    fun delete(): RealmResults<Saved> {
+        val chosen = mRealm!!.where(Saved::class.java)
+            .equalTo("id", id)
+            .findAll()
+        mRealm!!.executeTransaction {
+            chosen.deleteFromRealm(0)
+        }
+        return mRealm!!.where(Saved::class.java).findAll()
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
         mRealm!!.close()

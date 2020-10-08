@@ -1,5 +1,7 @@
 package com.airi.presentation
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -62,7 +64,6 @@ class DoneFragment : Fragment() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-//                    Log.d("###", response.message)
                 val responseText: String? = response.body?.string()
                 Log.d("###", "あと一歩")
 
@@ -73,12 +74,9 @@ class DoneFragment : Fragment() {
 
                         val list = parseXml(responseText!!)
 
-                        // adapterを作成します
                         val adapter = CountAdapter(requireActivity(), returnListViewItems(list))
 
-                        // adapterをlistViewに紐付けます。
                         lists.adapter = adapter
-
 
                         var countArray = arrayOf<Pair<String,Int>>()
                         for (word in list){
@@ -102,16 +100,12 @@ class DoneFragment : Fragment() {
 
             }
         })
-
-
-
-
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        scoreB.setVisibility(View.INVISIBLE);
+//        scoreB.setVisibility(View.INVISIBLE);
     val time = requireArguments()!!.getInt("time")
     val hour = time / 3600
     val min = (time - hour * 3600) / 60
@@ -120,7 +114,6 @@ class DoneFragment : Fragment() {
     val minText = String.format("%02d", min)
     val secText = String.format("%02d", sec)
 
-        //ここの時間の表示方法ってもっと良いやり方ないのかな、、
         val editText = editText.findViewById(R.id.editText) as EditText
 
         timerr.text = "${hourText}:${minText}:${secText}"
@@ -137,7 +130,6 @@ class DoneFragment : Fragment() {
                     val sentences = sentences.text.toString()
                     Toast.makeText(context,"保存しました",Toast.LENGTH_LONG).show()
                     val date=getNowDate()
-//            レルムにタイトルと本文をidを鍵にして保存する
                     create(title = textTitle, bunshou = sentences, ttime = time, date = date)
 
                 }
@@ -147,14 +139,18 @@ class DoneFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_DoneFragment_to_StartFragment)
         }
-//        scoreB.setOnClickListener {
-//            findNavController().navigate(R.id.action_DoneFragment_to_ScoreFragment)
-//        }
+        scoreB.setOnClickListener {
+//            val speed = timme/lenggth
+//            val pref: SharedPreferences = requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
+//            val editor: SharedPreferences.Editor = pref.edit()
+//            editor.putInt("Speed", speed)
+//            editor.commit()
+            findNavController().navigate(R.id.action_DoneFragment_to_ScoreFragment)
+        }
 
     }
 
     fun getNowDate(): String? {
-//        val df: DateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
         val df: DateFormat = SimpleDateFormat("yyyy/MM/dd")
         val datee = Date(System.currentTimeMillis())
         return df.format(datee)
@@ -193,10 +189,13 @@ class DoneFragment : Fragment() {
             }
         }
         val length = sentences.length()
-        wordCount.text= (length-1).toString()+"文字"
+        if(length == 0){
+            wordCount.text= "0文字"
+        }
+        else{
+        wordCount.text= (length-1).toString()+"文字"}
         return countArray
     }
-
 
     @Throws(XmlPullParserException::class, IOException::class)
     private fun parseXml(inputString:String) : MutableList<String> {

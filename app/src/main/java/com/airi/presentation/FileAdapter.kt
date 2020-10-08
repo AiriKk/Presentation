@@ -3,7 +3,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
@@ -34,7 +37,6 @@ class FileAdapter (
     interface OnItemClickListener{
         fun onItemClickListener(view: View, position: Int, clickedText: String ,clickedTitle: String,clickedTime: Int,clickedDate:String?)
     }
-
     // リスナー
     fun setOnItemClickListener(listener: OnItemClickListener){
         this.listener = listener

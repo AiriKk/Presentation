@@ -15,6 +15,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/dateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:text="TextView"
+            android:textSize="14sp" />
+
+        <TextView
             android:id="@+id/filename"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,14 +35,14 @@
             android:text="TextView"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/dateText"
+        <ImageView
+            android:id="@+id/delete"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:gravity="center"
-            android:text="TextView"
-            android:textSize="14sp" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="5.5"
+            app:srcCompat="@drawable/trash" />
 
     </LinearLayout>
 

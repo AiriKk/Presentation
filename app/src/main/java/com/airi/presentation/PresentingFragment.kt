@@ -7,7 +7,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,13 +44,14 @@ class PresentingFragment : Fragment() {
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "音声聞き取り中...")
 
         try {
-            // インテントを発行
             startActivityForResult(intent, REQUEST_CODE)
+
         } catch (e: ActivityNotFoundException) {
             e.printStackTrace()
             spoken.text = e.message
         }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
