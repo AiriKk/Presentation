@@ -140,11 +140,6 @@ class DoneFragment : Fragment() {
             findNavController().navigate(R.id.action_DoneFragment_to_StartFragment)
         }
         scoreB.setOnClickListener {
-//            val speed = timme/lenggth
-//            val pref: SharedPreferences = requireContext().getSharedPreferences("Data", Context.MODE_PRIVATE)
-//            val editor: SharedPreferences.Editor = pref.edit()
-//            editor.putInt("Speed", speed)
-//            editor.commit()
             findNavController().navigate(R.id.action_DoneFragment_to_ScoreFragment)
         }
 

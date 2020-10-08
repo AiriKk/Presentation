@@ -19,6 +19,7 @@ class FileAdapter (
     RealmRecyclerViewAdapter<Saved, FileAdapter.FileViewHolder>(taskList, autoUpdate) {
 
     lateinit var listener: OnItemClickListener
+    lateinit var Llistener: AdapterView.OnItemLongClickListener
     override fun getItemCount(): Int = taskList?.size ?: 0
 
     override fun onBindViewHolder(holder: FileViewHolder, position: Int) {
@@ -27,6 +28,7 @@ class FileAdapter (
         holder.dateTextView.text = saved.date
         holder.itemView.setOnClickListener{
             listener.onItemClickListener(it, position, saved.bunshou, saved.title,saved.time,saved.date)
+            Llistener.onItemLongClickListener(it, position, saved.bunshou, saved.title,saved.time,saved.date)
         }
     }
 
@@ -36,10 +38,14 @@ class FileAdapter (
     }
     interface OnItemClickListener{
         fun onItemClickListener(view: View, position: Int, clickedText: String ,clickedTitle: String,clickedTime: Int,clickedDate:String?)
+        fun onItemLongClickListener(view: View, position: Int, clickedText: String ,clickedTitle: String,clickedTime: Int,clickedDate:String?)
     }
     // リスナー
     fun setOnItemClickListener(listener: OnItemClickListener){
         this.listener = listener
+    }
+    fun setOnItemLongClickListener(Llistener: AdapterView.OnItemLongClickListener){
+        this.Llistener = Llistener
     }
 
     class FileViewHolder(view: View) : RecyclerView.ViewHolder(view) {

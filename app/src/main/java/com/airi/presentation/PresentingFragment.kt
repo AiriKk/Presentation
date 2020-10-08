@@ -38,7 +38,6 @@ class PresentingFragment : Fragment() {
 
     private fun listen() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        // 言語が日本語
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.JAPAN.toString())
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 10)
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "音声聞き取り中...")
@@ -62,7 +61,6 @@ class PresentingFragment : Fragment() {
                 val results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                 // 内容があれば
                 if (results.size > 0) {
-                    // インデックス0の結果を表示
                     spoken.text = already + results[0] + " "
                     resultText = already + results[0] + " "
                 }
@@ -109,7 +107,7 @@ class PresentingFragment : Fragment() {
             hajime.setVisibility(View.VISIBLE);
                 pTimer.cancel()
             already = resultText;
-            AlertDialog.Builder(context) // FragmentではActivityを取得して生成
+            AlertDialog.Builder(context)
                 .setTitle("")
                 .setMessage("一時停止中")
                 .setNegativeButton("キャンセル") { dialog, which ->
@@ -131,7 +129,7 @@ class PresentingFragment : Fragment() {
                 pTimer.cancel()
                 timed =false
             }
-            AlertDialog.Builder(context) // FragmentではActivityを取得して生成
+            AlertDialog.Builder(context)
                 .setTitle("")
                 .setMessage("本当にやめますか")
                 .setNegativeButton("キャンセル") { dialog, which ->

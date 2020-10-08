@@ -23,15 +23,12 @@ class StartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         start.setOnClickListener {
-            //fragment遷移
             findNavController().navigate(R.id.action_StartFragment_to_PresentingFragment)
         }
         info.setOnClickListener {
-            //fragment遷移
             findNavController().navigate(R.id.action_StartFragment_to_InfoFragment)
         }
         previous.setOnClickListener {
-            //fragment遷移
             findNavController().navigate(R.id.action_StartFragment_to_FilesFragment)
         }
     }
