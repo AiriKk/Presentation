@@ -35,6 +35,7 @@ class PresentingFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_presenting, container, false)
         return view
     }
+    
 
     private fun listen() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
