@@ -84,7 +84,7 @@
                     android:layout_marginLeft="8dp"
                     android:gravity="center"
                     android:hint="00:00:00"
-                    android:textColor="#00cba4"
+                    android:textColor="#4d4d4d"
                     android:textSize="18sp" />
 
                 <TextView
@@ -94,6 +94,7 @@
                     android:layout_marginRight="8dp"
                     android:gravity="right|center_vertical"
                     android:text="文字"
+                    android:textColor="#4d4d4d"
                     android:textSize="18sp" />
 
             </LinearLayout>

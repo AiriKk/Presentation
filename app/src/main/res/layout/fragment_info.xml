@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="使い方"
+                android:textColor="#4d4d4d"
                 android:textSize="24sp" />
 
             <ImageView

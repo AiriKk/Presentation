@@ -105,7 +105,7 @@ class DoneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        scoreB.setVisibility(View.INVISIBLE);
+        scoreB.setVisibility(View.INVISIBLE);
     val time = requireArguments()!!.getInt("time")
     val hour = time / 3600
     val min = (time - hour * 3600) / 60
