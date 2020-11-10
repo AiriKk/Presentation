@@ -37,6 +37,11 @@ class FileAdapter (
     interface OnItemClickListener{
         fun onItemClickListener(view: View, position: Int, clickedText: String ,clickedTitle: String,clickedTime: Int,clickedDate:String?)
     }
+
+    fun removeAt(position: Int) {
+        Saved.removeAt(position)
+        notifyItemRemoved(position)
+    }
     // リスナー
     fun setOnItemClickListener(listener: OnItemClickListener){
         this.listener = listener
