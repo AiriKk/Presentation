@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.fragment_files.*
 class FilesFragment : Fragment() {
 
     var mRealm: Realm? = null
-    var adapter: FileAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +34,7 @@ class FilesFragment : Fragment() {
 
         val data = read()
 
-        adapter = FileAdapter(requireContext(), data, true)
+        var adapter = FileAdapter(requireContext(), data, true)
 
         adapter?.let {
 
@@ -64,6 +63,17 @@ class FilesFragment : Fragment() {
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = adapter
 
+            val swipeHandler = object : SwipeDelete(requireContext()) {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    viewHolder?.let {
+                        adapter.removeAt(it.adapterPosition)
+                    }
+                }
+            }
+
+            val itemTouchHelper = ItemTouchHelper(swipeHandler)
+            itemTouchHelper.attachToRecyclerView(recyclerView)
+
             cancel.setOnClickListener {
                 findNavController().popBackStack()
             }
@@ -73,12 +83,7 @@ class FilesFragment : Fragment() {
     fun read(): RealmResults<Saved> {
         return mRealm!!.where(Saved::class.java).findAll()
     }
-//    fun delete(task: Saved) : RealmResults<Saved> {
-//        mRealm!!.executeTransaction {
-//            task.deleteFromRealm()
-//        }
-//        return mRealm!!.where(Saved::class.java).findAll()
-//    }
+
 
     fun delete(): RealmResults<Saved> {
         val chosen = mRealm!!.where(Saved::class.java)
@@ -96,14 +101,4 @@ class FilesFragment : Fragment() {
         mRealm!!.close()
     }
 
-    val swipeHandler = object : SwipeDelete(context) {
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            viewHolder?.let {
-                adapter.removeAt(it.adapterPosition)
-            }
-        }
-    }
-
-    val itemTouchHelper = ItemTouchHelper(swipeHandler)
-    itemTouchHelper.attachToRecyclerView(recyclerView)
 }

@@ -7,15 +7,15 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class SwipeDelete(context: Context?)
-    : ItemTouchHelper.SimpleCallback(0, (ItemTouchHelper.RIGHT)){
+abstract class SwipeDelete(context: Context)
+    : ItemTouchHelper.SimpleCallback(0, (ItemTouchHelper.LEFT)) {
 
-    private val trashIcon = ContextCompat.getDrawable(context, R.drawable.trash)
-    private val trashIconIntrinsicWidth = trashIcon?.intrinsicWidth
-    private val trashIconIntrinsicHeight = trashIcon?.intrinsicHeight
+    private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.trash)
+    private val deleteIconIntrinsicWidth = deleteIcon?.intrinsicWidth
+    private val deleteIconIntrinsicHeight = deleteIcon?.intrinsicHeight
 
     private val background = ColorDrawable()
-    private val rightBackgroundColor = Color.parseColor("#ff0033")
+    private val leftBackgroundColor = Color.parseColor("#f44336")
     private val clearPaint = Paint().apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) }
 
     override fun onMove(
@@ -25,7 +25,6 @@ abstract class SwipeDelete(context: Context?)
     ): Boolean {
         return false
     }
-
 
     override fun onChildDraw(
         c: Canvas,
@@ -46,36 +45,36 @@ abstract class SwipeDelete(context: Context?)
         }
 
         // Draw the red delete background
-        val isRightDirection = dX < 0
-        if (isRightDirection) {
-            background.color = rightBackgroundColor
-            background.setBounds(itemView.left, itemView.top, itemView.left + dX.toInt(), itemView.bottom)
+        val isLeftDirection = dX < 0
+        if (isLeftDirection) {
+            background.color = leftBackgroundColor
+            background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
         }
         background.draw(c)
 
         val itemHeight = itemView.bottom - itemView.top
-        if (trashIcon != null
-            && trashIconIntrinsicWidth != null
-            && trashIconIntrinsicHeight != null){
+        if (deleteIcon != null
+            && deleteIconIntrinsicWidth != null
+            && deleteIconIntrinsicHeight != null) {
 
-                if (isRightDirection) {
-                    // Calculate position of delete icon
-                    val trashIconTop = itemView.top + (itemHeight - trashIconIntrinsicHeight) / 2
-                    val trashIconMargin = (itemHeight - trashIconIntrinsicHeight) / 2
-                    val trashIconLeft = itemView.right - trashIconMargin - trashIconIntrinsicWidth
-                    val trashIconRight = itemView.right - trashIconMargin
-                    val trashIconBottom = trashIconTop + trashIconIntrinsicHeight
+            if (isLeftDirection) {
+                // Calculate position of delete icon
+                val deleteIconTop = itemView.top + (itemHeight - deleteIconIntrinsicHeight) / 2
+                val deleteIconMargin = (itemHeight - deleteIconIntrinsicHeight) / 2
+                val deleteIconLeft = itemView.right - deleteIconMargin - deleteIconIntrinsicWidth
+                val deleteIconRight = itemView.right - deleteIconMargin
+                val deleteIconBottom = deleteIconTop + deleteIconIntrinsicHeight
 
-                    // Draw the delete icon
-                    trashIcon.setBounds(trashIconLeft, trashIconTop, trashIconRight, trashIconBottom)
-                    trashIcon.draw(c)
-
-                }
+                // Draw the delete icon
+                deleteIcon.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
+                deleteIcon.draw(c)
+            }
+        }
 
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
-    fun(c: Canvas?, left: Float, top: Float, right: Float, bottom: Float) {
+
+    private fun clearCanvas(c: Canvas?, left: Float, top: Float, right: Float, bottom: Float) {
         c?.drawRect(left, top, right, bottom, clearPaint)
-    } }
-    abstract fun clearCanvas(c: Canvas, fl: Float, toFloat: Float, toFloat1: Float, toFloat2: Float)
+    }
 }

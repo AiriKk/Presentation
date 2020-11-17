@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.OrderedRealmCollection
+import io.realm.Realm
 import io.realm.RealmRecyclerViewAdapter
 
 class FileAdapter (
@@ -39,7 +40,12 @@ class FileAdapter (
     }
 
     fun removeAt(position: Int) {
-        Saved.removeAt(position)
+        var mRealm: Realm? = null
+        mRealm = Realm.getDefaultInstance()
+        val saved: Saved = taskList?.get(position) ?: return
+        mRealm.beginTransaction()
+        saved.deleteFromRealm()
+        mRealm.commitTransaction()
         notifyItemRemoved(position)
     }
     // リスナー
