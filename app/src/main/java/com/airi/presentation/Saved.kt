@@ -13,5 +13,4 @@ open class Saved : RealmObject(){
     var bunshou : String = ""
     var time :Int = 0
     var date :String? = ""
-
 }

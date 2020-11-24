@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import io.realm.Realm
+import io.realm.Sort
 import kotlinx.android.synthetic.main.fragment_done.*
 import okhttp3.*
 import org.json.JSONException
@@ -77,21 +78,25 @@ class DoneFragment : Fragment() {
                         val adapter = CountAdapter(requireActivity(), returnListViewItems(list))
 
                         lists.adapter = adapter
-
-                        var countArray = arrayOf<Pair<String,Int>>()
-                        for (word in list){
-                            var isAdd = true
-                            for (i in countArray.indices ) {
-                                if (countArray[i].first == word) {
-                                    countArray[i] = Pair(word,countArray[i].second + 1)
-                                    isAdd = false
-                                    break
-                                }
-                            }
-                            if (isAdd) {
-                                countArray += Pair(word,1)
-                            }
-                        }
+//
+//                        var countArray = arrayOf<Pair<String,Int>>()
+//                        for (word in list){
+//                            var isAdd = true
+//                            for (i in countArray.indices ) {
+//                                if (countArray[i].first == word) {
+//                                    countArray[i] = Pair(word,countArray[i].second + 1)
+//                                    isAdd = false
+//                                    break
+//                                }
+//                            }
+//                            if (isAdd) {
+//                                countArray += Pair(word,1)
+//                            }
+//                        }
+//                        //ソート
+//                        countArray.sortWith(compareBy{it.second})
+//                        countArray.reverse()
+//                        println(countArray)
                     }
 
                 } catch (e: JSONException) {
@@ -178,17 +183,25 @@ class DoneFragment : Fragment() {
                     isAdd = false
                     break
                 }
+                countArray.sortedWith(compareBy{it.second})
+                println(countArray)
+
             }
             if (isAdd) {
                 countArray += Pair(word,1)
             }
+
         }
         val length = sentences.length()
         if(length == 0){
             wordCount.text= "0文字"
+        }else{
+        wordCount.text= (length-1).toString()+"文字"
         }
-        else{
-        wordCount.text= (length-1).toString()+"文字"}
+//        countArray.sortedWith(compareBy{it.second})
+        countArray.reverse()
+//        println(countArray)
+
         return countArray
     }
 
