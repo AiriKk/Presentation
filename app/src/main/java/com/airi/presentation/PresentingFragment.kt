@@ -23,7 +23,7 @@ import java.util.*
 class PresentingFragment : Fragment() {
 
     val REQUEST_CODE = 1000
-    var resultText = "今日はいい天気ですね。明日もいい天気です。"
+    var resultText = ""
     var already = ""
 
 

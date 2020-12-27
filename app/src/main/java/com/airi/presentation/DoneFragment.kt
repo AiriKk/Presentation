@@ -198,11 +198,8 @@ class DoneFragment : Fragment() {
         }else{
         wordCount.text= (length-1).toString()+"文字"
         }
-//        countArray.sortedWith(compareBy{it.second})
-        countArray.reverse()
-//        println(countArray)
-
-        return countArray
+        countArray.sortBy{it.second}
+        return countArray.reversedArray()
     }
 
     @Throws(XmlPullParserException::class, IOException::class)
