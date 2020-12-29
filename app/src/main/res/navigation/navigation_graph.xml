@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_DoneFragment_to_ScoreFragment"
             app:destination="@id/ScoreFragment" />
+        <action
+            android:id="@+id/action_DoneFragment_to_GraphFragment"
+            app:destination="@id/GraphFragment" />
     </fragment>
     <fragment
         android:id="@+id/FilesFragment"
@@ -71,5 +74,13 @@
     android:name="com.airi.presentation.ScoreFragment"
     android:label="ScoreFragment"
     tools:layout="@layout/fragment_score" />
+
+    <fragment
+        android:id="@+id/GraphFragment"
+        android:name="com.airi.presentation.GraphFragment"
+        android:label="GraphFragment"
+        tools:layout="@layout/fragment_graph">
+
+    </fragment>
 
 </navigation>

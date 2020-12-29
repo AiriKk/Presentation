@@ -3,24 +3,29 @@ package com.airi.presentation
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_done.*
 import kotlinx.android.synthetic.main.fragment_presenting.*
 import java.util.*
 
 class PresentingFragment : Fragment() {
 
     val REQUEST_CODE = 1000
-    var resultText = "今日の天気はいいですね。今日も頑張っていきましょう。今日も寒いですね。笑い飛ばしましょう。"
-    var alreadyReadText = ""
+    var resultText = ""
+    var already = ""
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,8 +62,8 @@ class PresentingFragment : Fragment() {
                 val results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                 // 内容があれば
                 if (results.size > 0) {
-                    spoken.text = alreadyReadText + results[0] + " "
-                    resultText = alreadyReadText + results[0] + " "
+                    spoken.text = already + results[0] + " "
+                    resultText = already + results[0] + " "
                 }
             }
         }
@@ -73,19 +78,6 @@ class PresentingFragment : Fragment() {
         var time = 0
         var timed = false
 
-        fun startTimer() {
-            time++
-            val hour = time / 3600
-            val min = (time - hour * 3600) / 60
-            val sec = time % 60
-            val hourText = String.format("%02d", hour)
-            val minText = String.format("%02d", min)
-            val secText = String.format("%02d", sec)
-
-            timer.text = "${hourText}:${minText}:${secText}"
-
-        }
-
         hajime.setOnClickListener {
             timed =true
             listen()
@@ -96,7 +88,15 @@ class PresentingFragment : Fragment() {
             pTimer.schedule(object : TimerTask() {
                 override fun run() {
                     pHandler.post {
-                        startTimer()
+                        time++
+                        val hour = time / 3600
+                        val min = (time - hour * 3600) / 60
+                        val sec = time % 60
+                        val hourText = String.format("%02d", hour)
+                        val minText = String.format("%02d", min)
+                        val secText = String.format("%02d", sec)
+
+                        timer.text = "${hourText}:${minText}:${secText}"
 
                     }
                 }
@@ -107,7 +107,7 @@ class PresentingFragment : Fragment() {
             stop.setVisibility(View.GONE);
             hajime.setVisibility(View.VISIBLE);
                 pTimer.cancel()
-            alreadyReadText = resultText;
+            already = resultText;
             AlertDialog.Builder(context)
                 .setTitle("")
                 .setMessage("一時停止中")

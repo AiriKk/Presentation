@@ -5,18 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
-import kotlinx.android.synthetic.main.fragment_done.*
+import io.realm.Realm
 
 
 class GraphFragment : Fragment() {
+
+//    var graphRealm: Realm? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,14 +26,14 @@ class GraphFragment : Fragment() {
     ): View? {
 
         //表示用サンプルデータの作成//
-        val x = listOf<Float>(1f, 2f, 3f, 4f, 6f, 7f, 8f, 9f)//X軸データ
-        val y = x.map { it * it }//Y軸データ（X軸の2乗）
+        val topDatas = listOf<Float>(1f, 2f, 3f, 4f, 5f)//X軸データ
+        val y = topDatas.map { it * it }//Y軸データ（X軸の2乗）
 
         //①Entryにデータ格納
         var entryList = mutableListOf<BarEntry>()
-        for (i in x.indices) {
+        for (i in topDatas.indices) {
             entryList.add(
-                BarEntry(x[i], y[i])
+                BarEntry(topDatas[i], y[i])
             )
         }
 
@@ -61,4 +62,19 @@ class GraphFragment : Fragment() {
 
         return view;
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+//        Realm.init(context)
+//        graphRealm = Realm.getDefaultInstance()
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+//        graphRealm!!.close()
+    }
+
+
 }

@@ -1,11 +1,14 @@
 package com.airi.presentation
 
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.speech.RecognizerIntent
 import android.text.Editable
 import android.text.TextUtils
 import android.util.Log
@@ -14,11 +17,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import io.realm.Realm
 import io.realm.Sort
 import kotlinx.android.synthetic.main.fragment_done.*
+import kotlinx.android.synthetic.main.fragment_presenting.*
 import okhttp3.*
 import org.json.JSONException
 import org.xmlpull.v1.XmlPullParser
@@ -27,6 +32,7 @@ import org.xmlpull.v1.XmlPullParserFactory
 import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStream
+import java.lang.reflect.Array.get
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,6 +41,7 @@ import kotlin.text.Typography.times
 class DoneFragment : Fragment() {
 
     var mRealm:Realm? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,25 +85,7 @@ class DoneFragment : Fragment() {
                         val adapter = CountAdapter(requireActivity(), returnListViewItems(list))
 
                         lists.adapter = adapter
-//
-//                        var countArray = arrayOf<Pair<String,Int>>()
-//                        for (word in list){
-//                            var isAdd = true
-//                            for (i in countArray.indices ) {
-//                                if (countArray[i].first == word) {
-//                                    countArray[i] = Pair(word,countArray[i].second + 1)
-//                                    isAdd = false
-//                                    break
-//                                }
-//                            }
-//                            if (isAdd) {
-//                                countArray += Pair(word,1)
-//                            }
-//                        }
-//                        //ソート
-//                        countArray.sortWith(compareBy{it.second})
-//                        countArray.reverse()
-//                        println(countArray)
+
                     }
 
                 } catch (e: JSONException) {
@@ -110,7 +99,6 @@ class DoneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        scoreB.setVisibility(View.INVISIBLE);
     val time = requireArguments()!!.getInt("time")
     val hour = time / 3600
     val min = (time - hour * 3600) / 60
@@ -145,7 +133,11 @@ class DoneFragment : Fragment() {
             findNavController().navigate(R.id.action_DoneFragment_to_StartFragment)
         }
         scoreB.setOnClickListener {
-            findNavController().navigate(R.id.action_DoneFragment_to_ScoreFragment)
+//            readTopFive(returnListViewItems(list))
+//            val graphDatas = bundleOf("graphData" to countedArray)
+            findNavController().navigate(R.id.action_DoneFragment_to_GraphFragment
+//                , graphDatas
+            )
         }
 
     }
@@ -183,10 +175,8 @@ class DoneFragment : Fragment() {
                     isAdd = false
                     break
                 }
-//                countArray.sortedWith(compareBy{it.second})
-//                println(countArray)
-                countArray.sortBy{it.second}
-                return countArray.reversedArray()
+                countArray.sortedWith(compareBy{it.second})
+                println(countArray)
 
             }
             if (isAdd) {
@@ -202,8 +192,17 @@ class DoneFragment : Fragment() {
         }
         countArray.sortBy{it.second}
         return countArray.reversedArray()
+    }
 
-        return countArray
+    private fun readTopFive(countArray : Array<Pair<String,Int>>) : Array<Pair<String,Int>>{
+
+        val topCountedArray = countArray.toList()
+        var countedArray = arrayOf<Pair<String,Int>>()
+
+        for (i in 0..4){
+            countedArray[i] = topCountedArray[i]
+        }
+    return countedArray
     }
 
     @Throws(XmlPullParserException::class, IOException::class)
@@ -238,4 +237,5 @@ class DoneFragment : Fragment() {
         }
         return list
     }
+
 }
