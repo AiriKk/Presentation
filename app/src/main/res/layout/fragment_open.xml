@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f6f6f6">
+    android:background="@color/colorBase">
 
     <TextView
         android:id="@+id/back2"
@@ -16,7 +16,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/suez_one"
         android:text="←"
-        android:textColor="#4d4d4d"
+        android:textColor="@color/colorText"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-smallcaps"
         android:text="Opened"
-        android:textColor="#4d4d4d"
+        android:textColor="@color/colorText"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,11 +95,11 @@
                 <TextView
                     android:id="@+id/tim"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:gravity="center"
                     android:hint="00:00:00"
-                    android:textColor="#00cba4"
+                    android:textColor="@color/colorText"
                     android:textSize="18sp" />
 
                 <TextView
@@ -109,6 +109,7 @@
                     android:layout_marginRight="8dp"
                     android:gravity="right|center_vertical"
                     android:text="文字"
+                    android:textColor="@color/colorText"
                     android:textSize="18sp" />
             </LinearLayout>
 

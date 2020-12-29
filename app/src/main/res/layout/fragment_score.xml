@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f6f6f6"
+    android:background="@color/colorBase"
     android:padding="16dp">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_margin="14dp"
         android:fontFamily="@font/suez_one"
         android:text="←"
-        android:textColor="#4d4d4d"
+        android:textColor="@color/colorText"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/suez_one"
         android:text="Score"
-        android:textColor="#4d4d4d"
+        android:textColor="@color/colorText"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

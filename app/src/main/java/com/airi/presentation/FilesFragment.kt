@@ -34,7 +34,7 @@ class FilesFragment : Fragment() {
 
         val data = read()
 
-        var adapter = FileAdapter(requireContext(), data, true)
+        var adapter = FileAdapter(requireContext(), data, false)
 
         adapter?.let {
 

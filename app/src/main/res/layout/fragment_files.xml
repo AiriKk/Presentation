@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f6f6f6">
+    android:background="@color/colorBase">
 
     <TextView
         android:id="@+id/textView6"
@@ -13,7 +13,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-smallcaps"
         android:text="Files"
-        android:textColor="#4d4d4d"
+        android:textColor="@color/colorText"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,14 +27,13 @@
         android:layout_margin="14dp"
         android:fontFamily="@font/suez_one"
         android:text="←"
-        android:textColor="#4d4d4d"
+        android:textColor="@color/colorText"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <ScrollView
-        android:elevation="5dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -44,6 +43,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/round"
+        android:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +57,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="#FFFFFF" />
 
         </LinearLayout>
     </ScrollView>

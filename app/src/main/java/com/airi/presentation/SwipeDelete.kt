@@ -53,9 +53,7 @@ abstract class SwipeDelete(context: Context)
         background.draw(c)
 
         val itemHeight = itemView.bottom - itemView.top
-        if (deleteIcon != null
-            && deleteIconIntrinsicWidth != null
-            && deleteIconIntrinsicHeight != null) {
+        if (deleteIcon != null && deleteIconIntrinsicWidth != null && deleteIconIntrinsicHeight != null) {
 
             if (isLeftDirection) {
                 // Calculate position of delete icon

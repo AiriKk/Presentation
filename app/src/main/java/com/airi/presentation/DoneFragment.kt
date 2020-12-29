@@ -183,8 +183,10 @@ class DoneFragment : Fragment() {
                     isAdd = false
                     break
                 }
-                countArray.sortedWith(compareBy{it.second})
-                println(countArray)
+//                countArray.sortedWith(compareBy{it.second})
+//                println(countArray)
+                countArray.sortBy{it.second}
+                return countArray.reversedArray()
 
             }
             if (isAdd) {
@@ -200,6 +202,8 @@ class DoneFragment : Fragment() {
         }
         countArray.sortBy{it.second}
         return countArray.reversedArray()
+
+        return countArray
     }
 
     @Throws(XmlPullParserException::class, IOException::class)
