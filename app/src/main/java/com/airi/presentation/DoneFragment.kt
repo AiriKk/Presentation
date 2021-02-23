@@ -20,6 +20,8 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.atilika.kuromoji.TokenizerBase
+import com.atilika.kuromoji.ipadic.Tokenizer
 import io.realm.Realm
 import io.realm.Sort
 import kotlinx.android.synthetic.main.fragment_done.*
@@ -65,35 +67,55 @@ class DoneFragment : Fragment() {
             .add("dic", "")
             .build()
 
-        val request = Request.Builder().url(url).post(body).build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                Log.d("faild", e.message)
-            }
+        val tokenizer = Tokenizer.Builder().mode(TokenizerBase.Mode.NORMAL).build()
+        val tokens = tokenizer.tokenize("我輩は猫猫猫である。名前はまだないあいない。");
+        val strList = mutableListOf<String>()
+        tokens.forEach {
+            strList.add(it.baseForm)
+            Log.d("Kuromoji", "${it.allFeatures}")
+        }
+        val listViewItem = returnListViewItems(strList)
+        val adapter = CountAdapter(requireActivity(),listViewItem)
+        lists.adapter = adapter
+        val length = kekka.length
+        if(length == 0){
+            wordCount.text= "0文字"
+        }else{
+            wordCount.text= (length-1).toString()+"文字"
+        }
 
-            override fun onResponse(call: Call, response: Response) {
-                val responseText: String? = response.body?.string()
-                Log.d("###", "あと一歩")
 
-                val mainHandler = Handler(Looper.getMainLooper())
-                try {
-                    mainHandler.post {
-                        sentences.text = kekka
 
-                        val list = parseXml(responseText!!)
-
-                        val adapter = CountAdapter(requireActivity(), returnListViewItems(list))
-
-                        lists.adapter = adapter
-
-                    }
-
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-
-            }
-        })
+//        val request = Request.Builder().url(url).post(body).build()
+//        client.newCall(request).enqueue(object : Callback {
+//            override fun onFailure(call: Call, e: IOException) {
+//                Log.d("faild", e.message)
+//            }
+//
+//            override fun onResponse(call: Call, response: Response) {
+//                val responseText: String? = response.body?.string()
+//                Log.d("###", "あと一歩")
+//
+//
+//                val mainHandler = Handler(Looper.getMainLooper())
+//                try {
+//                    mainHandler.post {
+//                        sentences.text = kekka
+//
+//                        val list = parseXml(responseText!!)
+//
+//                        val adapter = CountAdapter(requireActivity(), returnListViewItems(list))
+//
+//                        lists.adapter = adapter
+//
+//                    }
+//
+//                } catch (e: JSONException) {
+//                    e.printStackTrace()
+//                }
+//
+//            }
+//        })
         return view
     }
 
@@ -140,6 +162,7 @@ class DoneFragment : Fragment() {
             )
         }
 
+
     }
 
     fun getNowDate(): String? {
@@ -183,12 +206,6 @@ class DoneFragment : Fragment() {
                 countArray += Pair(word,1)
             }
 
-        }
-        val length = sentences.length()
-        if(length == 0){
-            wordCount.text= "0文字"
-        }else{
-        wordCount.text= (length-1).toString()+"文字"
         }
         countArray.sortBy{it.second}
         return countArray.reversedArray()

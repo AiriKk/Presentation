@@ -71,7 +71,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="14dp"
-        android:fontFamily="@font/suez_one"
         android:text="←"
         android:textColor="#4d4d4d"
         android:textSize="36sp"

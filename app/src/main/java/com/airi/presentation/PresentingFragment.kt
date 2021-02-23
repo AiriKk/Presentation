@@ -10,12 +10,15 @@ import android.os.Handler
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.atilika.kuromoji.TokenizerBase
+import com.atilika.kuromoji.ipadic.Tokenizer
 import kotlinx.android.synthetic.main.fragment_done.*
 import kotlinx.android.synthetic.main.fragment_presenting.*
 import java.util.*
@@ -38,6 +41,8 @@ class PresentingFragment : Fragment() {
     
 
     private fun listen() {
+
+
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.JAPAN.toString())
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 10)
